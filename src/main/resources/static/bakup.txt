@@ -1,0 +1,8 @@
+// Get AI choise
+function GetAI() {
+	str1=$('#yourChoiceText').text();
+    $("#myChoiceText").load('/AIChoise', {'playerMove':str1}, function(responseTxt, statusTxt, xhr){
+		if(statusTxt == "success")
+		  updateImg(myImgToUpdate, $('#myChoiceText').text());
+		});
+}
