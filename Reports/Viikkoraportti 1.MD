@@ -15,3 +15,6 @@ Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehell
 
 Mitä teen seuraavaksi?
 1. > Perustoiminnallisuus toimimaan, ja ensimmäiset versiot yksinkertaisista tekoälyn rajapinnan suorittavista luokista valmiiksi
+
+
+Käytetyt tunnit ~ 10h
