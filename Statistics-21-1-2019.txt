@@ -1,0 +1,28 @@
+46	64
+RandomAI	51
+MarkovChainAI	68
+AntiRotationAI	70
+MirroringAI	46
+
+
+139	148
+RandomAI	129
+MarkovChainAI	145
+AntiRotationAI	133
+MirroringAI	141
+
+
+
+82	118
+RandomAI	99
+MarkovChainAI	129
+AntiRotationAI	56
+MirroringAI	91
+
+
+
+126	223
+RandomAI	158
+MarkovChainAI	245
+AntiRotationAI	146
+MirroringAI	267

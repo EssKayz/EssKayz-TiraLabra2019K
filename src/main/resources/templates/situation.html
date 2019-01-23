@@ -2,9 +2,9 @@
 						  <div class="col-sm">
 								<div class="card" id="yourCard">
 									<div th:switch="${playerWins}">
-										<img th:case="1" class="card-img-top img-fluid p-a-1" style="background-color: green" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-04-04.png" alt="Card image cap" id="yourChoiceImg" />
-										<img th:case="-1" class="card-img-top img-fluid p-a-1" style="background-color: red" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-04-04.png" alt="Card image cap" id="yourChoiceImg" />
-										<img th:case ="0" class="card-img-top img-fluid p-a-1"  style="background-color: light-blue" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-04-04.png" alt="Card image cap" id="yourChoiceImg" />
+										<img th:case="1" class="card-img-top img-fluid p-a-1" style="background-color: green" th:src="${pMove.imgLink}" alt="Card image cap" id="yourChoiceImg" />
+										<img th:case="-1" class="card-img-top img-fluid p-a-1" style="background-color: red" th:src="${pMove.imgLink}" alt="Card image cap" id="yourChoiceImg" />
+										<img th:case ="0" class="card-img-top img-fluid p-a-1"  style="background-color: lightblue" th:src="${pMove.imgLink}" alt="Card image cap" id="yourChoiceImg" />
 										<img th:case ="*" class="card-img-top img-fluid p-a-1" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-04-04.png" alt="Card image cap" id="yourChoiceImg" />
 									</div>
 									<div class="card-footer text-muted">
@@ -13,11 +13,11 @@
 								</div>
 						   </div>
 						  <div class="col-sm">
-								<div class="card" id="yourCard">
+								<div class="card" id="myCard">
 									<div th:switch="${playerWins}">
-										<img th:case="-1" class="card-img-top img-fluid p-a-1" style="background-color: green" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-04-04.png" alt="Card image cap" id="yourChoiceImg" />
-										<img th:case="1" class="card-img-top img-fluid p-a-1" style="background-color: red" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-04-04.png" alt="Card image cap" id="yourChoiceImg" />
-										<img th:case ="0" class="card-img-top img-fluid p-a-1"  style="background-color: light-blue" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-04-04.png" alt="Card image cap" id="yourChoiceImg" />
+										<img th:case="-1" class="card-img-top img-fluid p-a-1" style="background-color: green" th:src="${move.imgLink}" alt="Card image cap" id="myChoiceImg" />
+										<img th:case="1" class="card-img-top img-fluid p-a-1" style="background-color: red" th:src="${move.imgLink}" alt="Card image cap" id="myChoiceImg" />
+										<img th:case ="0" class="card-img-top img-fluid p-a-1"  style="background-color: lightblue" th:src="${move.imgLink}" alt="Card image cap" id="myChoiceImg" />
 										<img th:case ="*" class="card-img-top img-fluid p-a-1" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-04-04.png" alt="Card image cap" id="yourChoiceImg" />
 									</div>
 									<div class="card-footer text-muted">
@@ -31,19 +31,28 @@
 					  
 					  
 					  <div th:fragment="scoresFrag" class="row">
-							<div class="col">
-							 <div class="alert alert-info" role="alert" id="yourScore"><strong>Your Score : </strong><span id="playerScoreSpan" th:text="${game.playerScore}"> class="m-l-1"></span></div>
-							</div>
-							<div class="col">
-							  <div class="alert alert-info" role="alert" id="myScore"><strong>My Score : </strong><span class="m-l-1" id="aiScoreSpan" th:text="${game.aiScore}"></span></div>
-							</div>
-							
-							<div class="row">
-								<div class="col-sm">
-								 <div class="alert alert-info" role="alert" id="yourScore"><strong>Your Win % : </strong><span id="playerPercentageSpan" th:text="${playerPercentage}"> </span><span text="%" /></div>
+							<div class="container">
+								<div class="row">
+										<div class="col" th:switch="${game.playerScore} &gt; ${game.aiScore}">
+										 <div class="alert alert-success" role="alert" th:case="true" id="yourScore"><strong>Your Score : </strong><span id="playerScoreSpan" th:text="${game.playerScore}"> class="m-l-1"></span></div>
+										 <div class="alert alert-info" role="alert" th:case="false" id="yourScore"><strong>Your Score : </strong><span id="playerScoreSpan" th:text="${game.playerScore}"> class="m-l-1"></span></div>
+										</div>
+										<div class="col">
+										  <div class="alert alert-secondary" role="alert" id="myScore"><strong>Draws : </strong><span class="m-l-1" id="drawSpan" th:text="${game.draws}"></span></div>
+										</div>
+										<div class="col" th:switch="${game.playerScore} &lt; ${game.aiScore}">
+										  <div class="alert alert-success" role="alert" th:case="true" id="myScore"><strong>My Score : </strong><span class="m-l-1" id="aiScoreSpan" th:text="${game.aiScore}"></span></div>
+										  <div class="alert alert-info" role="alert" th:case="false" id="myScore"><strong>My Score : </strong><span class="m-l-1" id="aiScoreSpan" th:text="${game.aiScore}"></span></div>
+										 </div>
 								</div>
-								<div class="col-sm">
-								 <div class="alert alert-info" role="alert" id="yourScore"><strong>Best Win % : </strong><span id="bestPercentageSpan" th:text="${bestPercentage}"></span><span text="%" /></div>
+								
+								<div class="row">
+									<div class="col-sm">
+									 <div class="alert alert-info" role="alert" id="yourScore"><strong>Your Win % : </strong><span id="playerPercentageSpan" th:text="${playerPercentage}"> </span><span text="%" /></div>
+									</div>
+									<div class="col-sm">
+									 <div class="alert alert-info" role="alert" id="yourScore"><strong>Best Win % : </strong><span id="bestPercentageSpan" th:text="${bestPercentage}"></span><span text="%" /></div>
+									</div>
 								</div>
 							</div>
-						  </div>
+						</div>

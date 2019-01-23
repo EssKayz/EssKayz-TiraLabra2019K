@@ -5,17 +5,17 @@
  */
 package TiraLab.GameLogic;
 
-import TiraLab.AI.AIntf;
-import TiraLab.AI.RandomAI;
-import TiraLab.AI.RememberingAI;
-import TiraLab.AI.ShuffleAI;
+import TiraLab.AI.*;
+
 import TiraLab.Controllers.Move;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
@@ -25,51 +25,140 @@ public class Game {
 
     private int playerScore;
     private int aiScore;
-    private int rounds;
-    private List<AIntf> ais;
+    private int draws;
 
-    public Game() {
+    private List<AIntf> ais;
+    private String sessionID;
+
+    public Game(String session) {
         this.playerScore = 0;
         this.aiScore = 0;
-        this.rounds = 0;
+        sessionID = session;
         initAIs();
-    }
-
-    public int getRounds() {
-        return rounds;
     }
 
     public final void initAIs() {
         ais = new ArrayList<>();
-        ais.add(new ShuffleAI());
-        ais.add(new RememberingAI(10));
         ais.add(new RandomAI());
+        ais.add(new MarkovChainOneMoveAI());
+        ais.add(new AntiRotationAI());
+        ais.add(new PlayerMirroringAI());
+        //
+        ais.add(new PathMatchAI(2));
+        ais.add(new PathMatchAI(5));
+        //
+        ais.add(new PatternMatchAI());
+        ais.add(new NovaAI());
     }
 
     public Move getAIMove() {
-        rounds++;
         HashMap<Move, Double> votes = new HashMap<>();
         votes.put(Move.ROCK, 0.0);
         votes.put(Move.PAPER, 0.0);
         votes.put(Move.SCISSORS, 0.0);
 
+        System.out.println("Votes for session " + this.sessionID);
         for (AIntf ai : ais) {
+            GameAI aitype = (GameAI) ai;
             Move selection = ai.giveMove();
-            double winRate = (double) ai.getWins() / rounds;
-            switch (selection) {
-                case PAPER:
-                    votes.put(Move.PAPER, votes.get(Move.PAPER) + (1 * winRate));
-                    break;
-                case ROCK:
-                    votes.put(Move.ROCK, votes.get(Move.ROCK) + (1 * winRate));
-                    break;
-                case SCISSORS:
-                    votes.put(Move.SCISSORS, votes.get(Move.SCISSORS) + (1 * winRate));
-                    break;
+
+            if (selection == null) {
+                continue;
             }
+
+            double shortTerm = aitype.getShortTermWinRate();
+            double winRate = (double) ai.getWins() / (ai.getWins() + playerScore);
+            if (Double.isNaN(winRate)) {
+                winRate = 0.0;
+            }
+
+            shortTerm = Math.floor((shortTerm * 100));
+            winRate = Math.max((Math.floor((winRate * 100))), 0.1);
+
+            if (winRate <= 47 && shortTerm <= 20 || shortTerm <= 10 && (winRate < 52)) {
+                System.out.println(aitype.AiType + "'s Winrate was too low (" + winRate + " : " + shortTerm + ") - skipping vote");
+                System.out.println("");
+                continue;
+            }
+
+            System.out.println(aitype.AiType + " votes for " + selection.toString() + " with a short term winrate of " + (shortTerm) + "%, and a long term winrate of " + winRate + "%");
+
+            if (winRate > 57 && shortTerm > 20) {
+                winRate += 15;
+            }
+            if (winRate > 65 && shortTerm > 25) {
+                winRate += winRate / 3;
+            }
+            if (shortTerm >= 60) {
+                winRate *= 1.25;
+                shortTerm += 2;
+            }
+
+            winRate *= Math.max((shortTerm), 0.005);
+            System.out.println(aitype.AiType + " influenced vote on " + selection.toString() + " by " + winRate + " points");
+
+            System.out.println("");
+
+            votes.put(selection, votes.get(selection) + (winRate));
+
+            // Commented, maybe there is a possibility to reduce the amount of votes on things not likely to be good??
+//            switch (selection) {
+//                case PAPER:
+//                    votes.put(Move.PAPER, votes.get(Move.PAPER) + (winRate));
+//                    break;
+//                case ROCK:
+//                    votes.put(Move.ROCK, votes.get(Move.ROCK) + (1 * winRate));
+//                    break;
+//                case SCISSORS:
+//                    votes.put(Move.SCISSORS, votes.get(Move.SCISSORS) + (1 * winRate));
+//                    break;
+//            }
         };
 
-        return Collections.max(votes.entrySet(), Map.Entry.comparingByValue()).getKey();
+        System.out.println("");
+        int totalVotes = 0;
+        for (Entry<Move, Double> entry : votes.entrySet()) {
+            totalVotes += Math.max(0, entry.getValue());
+            System.out.println(entry.getKey().toString() + " got " + entry.getValue() + " votes");
+        }
+        
+//        Commented out for same reason as above, what if we want to reduce odds of something, some day?
+//        if (totalVotes <= 0) {
+//            System.out.println("");
+//            System.out.println("Not enough votes, giving random move..");
+//            Move r = ais.get(0).giveMove();
+//            System.out.println("Chosen move to be played was : " + r.toString());
+//            System.out.println("");
+//            return r;
+//        }
+
+        double rock = Math.max(votes.get(Move.ROCK), totalVotes / 6);
+        double paper = Math.max(votes.get(Move.PAPER), totalVotes / 6);
+        double scissors = Math.max(votes.get(Move.SCISSORS), totalVotes / 6);
+
+        System.out.println("");
+        System.out.println("Rock : 0 - " + rock);
+        System.out.println("Paper : " + rock + " - " + (rock + paper));
+        System.out.println("Scissors : " + (rock + paper) + " - " + (scissors + rock + paper));
+
+        Random r = new Random();
+        int x = r.nextInt(totalVotes);
+        System.out.println("Randomizer got : " + x);
+        System.out.println("");
+        Move given;
+        if (x < rock) {
+            given = Move.ROCK;
+        } else if (x < (paper + rock)) {
+            given = Move.PAPER;
+        } else {
+            given = Move.SCISSORS;
+        }
+
+        Move chosen = given;
+        //Move chosen = Collections.max(votes.entrySet(), Map.Entry.comparingByValue()).getKey();
+        System.out.println("Chosen move to be played was : " + chosen.toString());
+
+        return chosen;
     }
 
     public void placeMove(String move) {
@@ -89,7 +178,7 @@ public class Game {
         for (AIntf ai : ais) {
             ai.increaseWinRating(aiWinningMove);
         }
-        rounds--;
+        draws++;
     }
 
     public void playerLoses(Move aiWinningMove) {
@@ -103,24 +192,11 @@ public class Game {
         return aiScore;
     }
 
+    public int getDraws() {
+        return draws;
+    }
+
     public int getPlayerScore() {
         return playerScore;
     }
-
-    public List<AIntf> getAis() {
-        return ais;
-    }
-
-    public void setAis(List<AIntf> ais) {
-        this.ais = ais;
-    }
-
-    public void setAiScore(int aiScore) {
-        this.aiScore = aiScore;
-    }
-
-    public void setPlayerScore(int playerScore) {
-        this.playerScore = playerScore;
-    }
-
 }

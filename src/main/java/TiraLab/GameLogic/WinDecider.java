@@ -62,4 +62,19 @@ public class WinDecider {
             }
         }
     }
+
+    public Move convertMove(String move) {
+        switch (move) {
+            case "Rock": {
+                return Move.ROCK;
+            }
+            case "Paper": {
+                return Move.PAPER;
+
+            }
+            default: {
+                return Move.SCISSORS;
+            }
+        }
+    }
 }

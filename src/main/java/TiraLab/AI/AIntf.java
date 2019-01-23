@@ -20,4 +20,5 @@ public interface AIntf {
     public void increaseWinRating(Move prevMove);
     
     public int getWins();
+    
 }

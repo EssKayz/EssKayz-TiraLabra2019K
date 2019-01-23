@@ -13,9 +13,9 @@
     </head>
 
     <body>
+	<th:block th:each="session : ${sessions}">
 		<table>
 		   <tbody>
-				<th:block th:each="session : ${sessions}">
 					<hr/>
 						 <tr>
 							 <td th:text="${session.playerScore}">...</td>
@@ -28,13 +28,12 @@
 							<td th:text="${ai.wins}" />
 						</tr>
 					</th:block>
-				</th:block>
 			<br/>
 			<br/>
 			<hr/>
 		   </tbody>
 		</table>
-
+	</th:block>
         <script
 		  src="https://code.jquery.com/jquery-3.3.1.js"
 		  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
