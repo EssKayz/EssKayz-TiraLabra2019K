@@ -12,7 +12,7 @@ import TiraLab.Controllers.Move;
 import java.util.Random;
 
 /**
- *
+ * DEVELOPMENT PHASE
  * @author ColdFish
  */
 public class MarkovChainTwoMovesAI extends GameAI implements AIntf {

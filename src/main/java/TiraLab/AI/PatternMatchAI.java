@@ -69,6 +69,11 @@ public class PatternMatchAI extends GameAI implements AIntf {
         lastPlayerMove = playerMove;
     }
     
+    /**
+     * Check if the player won, and if the player swaps strategy when losing or winning, and adjusts the decision making acordingly
+     * @param pMove
+     * @param playerMove 
+     */
     public void checkPatterns(Move pMove, String playerMove) {
         switch (decider.playerWins(pMove, aiPreviousMove)) {
             case 1: {
@@ -104,6 +109,10 @@ public class PatternMatchAI extends GameAI implements AIntf {
         }
     }
     
+    /**
+     * Adjusts the AI strategy based on the previous player move
+     * @param playerMove 
+     */
     private void adjustStrategy(String playerMove) {
         Move pMove = decider.convertMove(playerMove);
         switch (pMove) {

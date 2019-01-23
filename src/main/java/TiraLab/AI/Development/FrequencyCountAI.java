@@ -11,6 +11,10 @@ public class FrequencyCountAI extends GameAI implements AIntf {
     private String[] memory;
     private int freeMemoryIndex;
 
+    /**
+     * UNDER DEVELOPMENT
+     * @param muistinKoko 
+     */
     public FrequencyCountAI(int muistinKoko) {
         memory = new String[muistinKoko];
         freeMemoryIndex = 0;
