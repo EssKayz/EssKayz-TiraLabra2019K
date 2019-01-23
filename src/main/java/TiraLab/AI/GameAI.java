@@ -28,20 +28,34 @@ public class GameAI {
         this.decider = new WinDecider();
     }
 
+    /**
+     * Places a win into the AI's short term memory Queue
+     */
     public void placeWin() {
         shortTermWins.dequeue();
         shortTermWins.enqueue(1);
     }
 
+    /**
+     * Places a loss into the AI's short term memory Queue
+     */
     public void placeLose() {
         shortTermWins.dequeue();
         shortTermWins.enqueue(0);
     }
 
+    /**
+     * Returns the AI's short term memory Win Rate
+     * @return 
+     */
     public double getShortTermWinRate() {
         return (double) shortTermWins.getContentSum() / shortTermSpan;
     }
 
+    /**
+     * Checks if would have AI won, and places a win or loss accordingly to short term memory
+     * @param winningMove 
+     */
     public void increaseWinRating(Move winningMove) {
         if (aiPreviousMove == winningMove) {
             wins++;
@@ -51,6 +65,11 @@ public class GameAI {
         }
     }
 
+    
+    /**
+     * Returns a random Move
+     * @return 
+     */
     public Move returnRandomMove() {
         Random r = new Random();
         double d = r.nextDouble();
@@ -66,6 +85,10 @@ public class GameAI {
         return given;
     }
 
+    /**
+     * returns AI score
+     * @return 
+     */
     public int getWins() {
         return wins;
     }

@@ -92,6 +92,14 @@ public class AntiRotationAI extends GameAI implements AIntf {
         lastPlayerMove = super.decider.convertMove(playerMove);
     }
 
+    /**
+     * Checks if the player is placing moves in a rotating pattern, and returns which way it is rotating
+     * -1 = no pattern
+     * 0 = clockwise
+     * 1 = counterClockwise
+     * @param pMov
+     * @return 
+     */
     private int rotation(String pMov) {
         // 0 = clockwise, 1 = anticlockwise
         if (lastPlayerMove == null || twoMovesBackPlayerMove == null) {

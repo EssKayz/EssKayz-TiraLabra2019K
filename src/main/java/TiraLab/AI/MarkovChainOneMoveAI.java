@@ -21,6 +21,9 @@ public class MarkovChainOneMoveAI extends GameAI implements AIntf {
     private int lastMove; //last move of the human player
     private int moveBeforeLast; //move before last of the human player
 
+    /**
+     * Initialized new Markov Chain AI that tracks past one move
+     */
     public MarkovChainOneMoveAI() {
         super.AiType = "MarkovChainAI";
         markovChain = new float[][]{{0.33f, 0.33f, 0.33f}, {0.33f, 0.33f, 0.33f}, {0.33f, 0.33f, 0.33f}};
@@ -28,7 +31,7 @@ public class MarkovChainOneMoveAI extends GameAI implements AIntf {
     }
 
     @Override
-    public Controllers.Move giveMove() {
+    public Move giveMove() {
         Random rand = new Random();
         float ranFloat = rand.nextFloat();
         Move selected;

@@ -33,55 +33,60 @@ public class NovaAI extends GameAI implements AIntf {
             return null;
         }
 
-        String commonSub = lrs(playerMoveHistory);
+        String commonSub = longestRepeatingSubStr(playerMoveHistory);
         while (!commonSub.isEmpty()) {
             while (true) {
                 int indexOfSub = playerMoveHistory.indexOf(commonSub);
                 char c = playerMoveHistory.charAt(indexOfSub + commonSub.length());
                 System.out.println("Longest common string was : " + commonSub + ", found first at index " + indexOfSub);
+
                 // Check what the score was last time situation was like this
                 switch (playerWinHistory.charAt(indexOfSub + commonSub.length())) {
+                    //If player both the last time and now, he will most likely go for the same strategy again
                     case 'W': {
                         if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
-                            //If player both the last time and now, he will most likely go for the same strategy again
                             return getCounterFor(c);
                         }
 
+                        //If player won and then lost this time, he will most likely swap strategy
                         if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
-                            //If player won and then lost twice in a row, he will most likely swap strategy
                             return getAnythingBut(c);
                         }
 
+                        // If the player won then, and had a draw now, he will probably stick with it to win the next round
                         if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
                             return getCounterFor(c);
                         }
                     }
 
                     case 'L': {
+                        //If player Lost the last time, and won this time, he will probably stick with the plan considering it worked
                         if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
-                            //If player Lost and then won
-                            return getAnythingBut(c);
-                        }
-
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
-                            //If player lost back then
                             return getCounterFor(c);
                         }
 
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
+                        //If player lost back then, and lost now - he will most likely swap strategy
+                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
                             return getAnythingBut(c);
+                        }
+
+                        //If player lost back then, and lost now - he will most likely stick with the plan
+                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
+                            return getCounterFor(c);
                         }
                     }
 
                     case 'D': {
+                        // Player drew last time ,and won this time - he will probably stick with the plan
                         if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
                             return getCounterFor(c);
                         }
-
+                        // Player drew last time, lost this time - he will probably change strategy
                         if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
                             return getAnythingBut(c);
                         }
 
+                        // If he drew back then, and drew now - he will probably swap - so we stick with it
                         if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
                             Move m = super.decider.convertMove("" + c);
                             super.aiPreviousMove = m;
@@ -98,6 +103,13 @@ public class NovaAI extends GameAI implements AIntf {
         return null;
     }
 
+    /**
+     * Returns a move that is any move but the move characterized in the move
+     * param
+     *
+     * @param move
+     * @return
+     */
     public Move getAnythingBut(char move) {
         double r = 0.5;
         double p = 0.5;
@@ -140,6 +152,12 @@ public class NovaAI extends GameAI implements AIntf {
         return null;
     }
 
+    /**
+     * returns the move that counters the move characterized in param 'move'
+     *
+     * @param move
+     * @return
+     */
     public Move getCounterFor(char move) {
         Move m = null;
         if (move == 'R') {
@@ -185,17 +203,23 @@ public class NovaAI extends GameAI implements AIntf {
         }
     }
 
-    public String lrs(String s) {
-        int n = s.length();
-        String[] suffixes = new String[n];
-        for (int i = 0; i < n; i++) {
-            suffixes[i] = s.substring(i, n);
+    /**
+     * returns the longest repeating substring within the string 's'
+     *
+     * @param s
+     * @return
+     */
+    public String longestRepeatingSubStr(String s) {
+        int stringLength = s.length();
+        String[] suffixes = new String[stringLength];
+        for (int index = 0; index < stringLength; index++) {
+            suffixes[index] = s.substring(index, stringLength);
         }
 
         Arrays.sort(suffixes);
 
         String lrs = "";
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < stringLength - 1; i++) {
             String x = lcp(suffixes[i], suffixes[i + 1]);
             int playerMoves = playerMoveHistory.length();
             int indeX = playerMoveHistory.lastIndexOf(x);
@@ -206,13 +230,20 @@ public class NovaAI extends GameAI implements AIntf {
         return lrs;
     }
 
+    /**
+     * returns the longest common prefix for two strings, s and t
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     public String lcp(String s, String t) {
-        int n = Math.min(s.length(), t.length());
-        for (int i = 0; i < n; i++) {
-            if (s.charAt(i) != t.charAt(i)) {
-                return s.substring(0, i);
+        int shortest = Math.min(s.length(), t.length());
+        for (int index = 0; index < shortest; index++) {
+            if (s.charAt(index) != t.charAt(index)) {
+                return s.substring(0, index);
             }
         }
-        return s.substring(0, n);
+        return s.substring(0, shortest);
     }
 }

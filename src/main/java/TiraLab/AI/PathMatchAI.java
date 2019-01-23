@@ -29,6 +29,8 @@ public class PathMatchAI extends GameAI implements AIntf {
             return null;
         }
 
+        // Gets the last time that the same pattern happened as now
+        // And then counts the amount of each respective move being made after the pattern, and then gives the one that happened most frequently
         String pastMov = gamePlayerHistory.substring(gamePlayerHistory.length() - memoryLength, gamePlayerHistory.length());
         int r = 0;
         int p = 0;
@@ -37,7 +39,6 @@ public class PathMatchAI extends GameAI implements AIntf {
 
         while (lastIndex > -1) {
             lastIndex = gamePlayerHistory.indexOf(pastMov, lastIndex);
-
             if (lastIndex != -1) {
                 lastIndex += pastMov.length();
                 if (lastIndex + 1 < gamePlayerHistory.length()) {
