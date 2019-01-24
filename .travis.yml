@@ -1,5 +1,6 @@
 addons: 
   firefox: "49.0"
+  chrome: stable
 after_success: 
   - bash <(curl -s https://codecov.io/bash)
 before_install: 
