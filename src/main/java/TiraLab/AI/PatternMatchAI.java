@@ -75,13 +75,13 @@ public class PatternMatchAI extends GameAI implements AIntf {
     /**
      * Check if the player won, and if the player swaps strategy when losing or winning, and adjusts the decision making acordingly
      * @param pMove
-     * @param playerMove 
+     * @param playerMoveThisRound 
      */
-    public void checkPatterns(Move pMove, String playerMove) {
+    public void checkPatterns(Move pMove, String playerMoveThisRound) {
         switch (decider.playerWins(pMove, aiPreviousMove)) {
             case 1: {
                 //Player wins, and it was the same move as last turn, or else, by altering his choise
-                if (playerMove.equals(lastPlayerMove)) {
+                if (playerMoveThisRound.equals(lastPlayerMove)) {
                     repeatAfterWin++;
                     matchRate -= 2;
                 } else {
@@ -93,7 +93,7 @@ public class PatternMatchAI extends GameAI implements AIntf {
 
             // Player loses, because he kept the same card, or else -> by altering his choise
             case -1: {
-                if (playerMove.equals(lastPlayerMove)) {
+                if (playerMoveThisRound.equals(lastPlayerMove)) {
                     repeatAfterLose++;
                 } else {
                     alternateAfterLose++;
@@ -102,7 +102,7 @@ public class PatternMatchAI extends GameAI implements AIntf {
             }
             
             case 0: {
-                if (playerMove.equals(lastPlayerMove)) {
+                if (playerMoveThisRound.equals(lastPlayerMove)) {
                     repeatOnDraw++;
                 } else {
                     alternateAfterDraw++;
