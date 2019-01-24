@@ -5,6 +5,7 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_install: 
   - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
+  - mkdir /home/travis/virtualenv/python2.7.12/bin
   - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python2.7.12/bin/
   - export CHROME_BIN=chromium-browser
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
