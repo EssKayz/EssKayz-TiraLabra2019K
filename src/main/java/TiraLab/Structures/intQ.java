@@ -15,6 +15,10 @@ public class intQ {
     int capacity;
     int array[];
 
+    /**
+     * A queue implementation using Arrays
+     * @param capacity the maximum size of the queue, after which it will start to remove elements from the end of the queue when adding more then it can hold
+     */
     public intQ(int capacity) {
         this.capacity = capacity;
         front = this.size = 0;
