@@ -15,7 +15,7 @@ public interface AIntf {
     
     /**
      * Returns the move that the AI chose
-     * @return 
+     * @return returns enum Move selection
      */
     public Move giveMove();
 
@@ -39,4 +39,8 @@ public interface AIntf {
      */
     public int getWins();
     
+    /**
+     * Resets the win counter of the AI
+     */
+    public void resetWins();
 }

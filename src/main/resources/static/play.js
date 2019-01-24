@@ -39,6 +39,13 @@ $(document).ready( function() {
 		var value = $(this).text();
 		ldImg(value).done( ldScore(value));
 	});
+	$('#startOver').click( function() {
+		var sID = $('#sessionID').val()
+		console.log(sID)
+		$.get('/reset/', {id: sID })
+		loadScores()
+		loadImages()
+	});
 });
 
 

@@ -17,6 +17,10 @@ public class SillyAI extends GameAI implements AIntf {
 
     private Move alwaysReturns;
 
+    /**
+     *
+     * @param type
+     */
     public SillyAI(String type) {
         super.AiType = "SillyAI-" + type;
         WinDecider d = new WinDecider();

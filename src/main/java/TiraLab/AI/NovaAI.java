@@ -23,6 +23,9 @@ public class NovaAI extends GameAI implements AIntf {
     private int strategySwaps = 0;
     private int strategyStays = 0;
 
+    /**
+     * Creates an AI that records the history of the player's moves and score history, and attempts to counter the longest recognized repeated pattern where the player has won with a similar pattern
+     */
     public NovaAI() {
         super.AiType = "PlayerWinHistoryMatchAI";
     }

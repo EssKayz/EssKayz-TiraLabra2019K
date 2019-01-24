@@ -16,14 +16,35 @@ import java.util.Random;
  */
 public class GameAI {
 
+    /**
+     * Tracks the amount of wins for the AI during the current session, reset when user wants to reset his game
+     */
     public int wins;
+
+    /**
+     * Tracks the previous move of the AI
+     */
     public Move aiPreviousMove;
+
+    /**
+     * Defines the type of AI, used for debugging and showing statistics per AI
+     */
     public String AiType;
     private final int shortTermSpan = 10;
+
+    /**
+     * Creates an WinDecider object that classes will inherit to use the helper methods from
+     */
     public WinDecider decider;
 
+    /**
+     * Creates a Queue that tracks the win history with the length of shortTermSpan
+     */
     public intQ shortTermWins = new intQ(shortTermSpan);
 
+    /**
+     * Creates a superClass that AI's extend to inherit shared methods from
+     */
     public GameAI() {
         this.decider = new WinDecider();
     }
@@ -42,6 +63,13 @@ public class GameAI {
     public void placeLose() {
         shortTermWins.dequeue();
         shortTermWins.enqueue(0);
+    }
+    
+    /**
+     * Reset the WinCounter of the AI
+     */
+    public void resetWins(){
+        this.wins = 0;
     }
 
     /**

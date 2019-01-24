@@ -7,6 +7,7 @@ import TiraLab.GameLogic.WinDecider;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.Random;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Configuration
 @Controller
 public class Controllers {
-
-    private int freeID = 0;
 
     private HashMap<String, Game> sessions;
     private WinDecider decider;
@@ -49,12 +49,14 @@ public class Controllers {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(HttpServletRequest request, HttpServletResponse response) {
+    public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
         String sessionID = getSession(request);
         if (sessionID == null) {
-            Cookie cookie = new Cookie("SESSIONID", String.valueOf(freeID));
-            cookie.setValue(String.valueOf(freeID));
-            freeID++;
+            Random r = new Random();
+            int rr = r.nextInt(Integer.MAX_VALUE);
+            Cookie cookie = new Cookie("GameID", String.valueOf(rr));
+            cookie.setValue(String.valueOf(rr));
+
             cookie.setHttpOnly(true);
             cookie.setMaxAge(60 * 60 * 24 * 365 * 1);
             response.addCookie(cookie);
@@ -62,10 +64,11 @@ public class Controllers {
         sessionID = getSession(request);
         if (!sessions.containsKey(sessionID)) {
             System.out.println("-------/////////--------");
-            System.out.println("New session added");
+            System.out.println("New session added : ID " + sessionID);
             System.out.println("-------/////////--------");
             sessions.put(sessionID, new Game(sessionID));
         }
+        model.addAttribute("game", sessions.get(sessionID));
         return "game";
     }
 
@@ -74,7 +77,7 @@ public class Controllers {
         String sessionID = getSession(request);
         if (!sessions.containsKey(sessionID)) {
             System.out.println("-------/////////--------");
-            System.out.println("New session added");
+            System.out.println("New session added : ID " + sessionID);
             System.out.println("-------/////////--------");
             sessions.put(sessionID, new Game(sessionID));
         }
@@ -82,13 +85,22 @@ public class Controllers {
         return "stats";
     }
 
+    @RequestMapping(value = "/reset")
+    public String resetGame(HttpServletRequest request, Model model, @RequestParam String id) {
+        sessions.get(id).resetScore();
+        model.addAttribute("game", sessions.get(id));
+        return "game";
+    }
+
     @RequestMapping(value = "/scores")
     public String scores(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam Optional<String> playerMove) throws InterruptedException {
         String sessionID = getSession(request);
         if (sessionID == null) {
-            Cookie cookie = new Cookie("SESSIONID", String.valueOf(freeID));
-            cookie.setValue(String.valueOf(freeID));
-            freeID++;
+            Random r = new Random();
+            int rr = r.nextInt(Integer.MAX_VALUE);
+            Cookie cookie = new Cookie("GameID", String.valueOf(rr));
+            cookie.setValue(String.valueOf(rr));
+
             cookie.setHttpOnly(true);
             cookie.setMaxAge(60 * 60 * 24 * 365 * 1);
             response.addCookie(cookie);
@@ -126,9 +138,11 @@ public class Controllers {
     public String images(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam Optional<String> playerMove) {
         String sessionID = getSession(request);
         if (sessionID == null) {
-            Cookie cookie = new Cookie("SESSIONID", String.valueOf(freeID));
-            cookie.setValue(String.valueOf(freeID));
-            freeID++;
+            Random r = new Random();
+            int rr = r.nextInt(Integer.MAX_VALUE);
+            Cookie cookie = new Cookie("GameID", String.valueOf(rr));
+            cookie.setValue(String.valueOf(rr));
+
             cookie.setHttpOnly(true);
             cookie.setMaxAge(60 * 60 * 24 * 365 * 1);
             response.addCookie(cookie);
@@ -194,7 +208,7 @@ public class Controllers {
     public String getSession(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
-            Optional<Cookie> cooki = Arrays.stream(cookies).filter(cookie -> cookie.getName().contains("SESSION")).findFirst();
+            Optional<Cookie> cooki = Arrays.stream(cookies).filter(cookie -> cookie.getName().contains("GameID")).findFirst();
             if (cooki.isPresent()) {
                 return cooki.get().getValue();
             }

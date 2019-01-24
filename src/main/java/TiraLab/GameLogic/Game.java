@@ -37,9 +37,35 @@ public class Game {
     public Game(String session) {
         this.playerScore = 0;
         this.aiScore = 0;
-        sessionID = session;
+        this.draws = 0;
+        this.sessionID = session;
         initAIs();
     }
+    
+    public void resetScore(){
+        this.playerScore = 0;
+        this.aiScore = 0;
+        this.draws = 0;
+        initAIs();
+    }
+    
+    public void resetAIWins(){
+        for(AIntf ai : ais){
+            ai.resetWins();
+        }
+    }
+
+    public String getSessionID() {
+        return sessionID;
+    }
+
+    
+    
+    public List<AIntf> getAis() {
+        return ais;
+    }
+    
+    
 
     /**
      * Initialize the AI's to be used for the session

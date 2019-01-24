@@ -17,6 +17,10 @@ public class PathMatchAI extends GameAI implements AIntf {
     private String gamePlayerHistory = "";
     private int memoryLength;
 
+    /**
+     * Creates an AI that attempts to match patterns that the player has played before, and counter those
+     * @param memory the amount of moves kept in memory to find from history
+     */
     public PathMatchAI(int memory) {
         super.AiType = "PathMatcherAI-" + memory + "moves";
         memoryLength = memory;

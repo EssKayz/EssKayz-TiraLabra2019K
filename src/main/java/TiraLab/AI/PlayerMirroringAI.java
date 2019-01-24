@@ -20,6 +20,9 @@ public class PlayerMirroringAI extends GameAI implements AIntf {
     private WinDecider decider;
     private boolean playerWonLastRound;
 
+    /**
+     * Creates an AI that attempts to mirror the player
+     */
     public PlayerMirroringAI() {
         super.AiType = "MirroringAI";
         decider = new WinDecider();
@@ -102,7 +105,7 @@ public class PlayerMirroringAI extends GameAI implements AIntf {
                 break;
             }
             default: {
-                playerWonLastRound = true;
+                playerWonLastRound = false;
                 break;
             }
         }

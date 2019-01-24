@@ -17,6 +17,9 @@ public class RandomAI extends GameAI implements AIntf {
 
     Random r = new Random();
 
+    /**
+     * Creates an AI that returns a random Move enum
+     */
     public RandomAI() {
         super.AiType = "RandomAI";
     }

@@ -33,6 +33,9 @@ public class PatternMatchAI extends GameAI implements AIntf {
     
     private String lastPlayerMove;
     
+    /**
+     * Creates an AI that keeps track of what the player tends to do when he wins or loses, and attempts to counter that
+     */
     public PatternMatchAI() {
         decider = new WinDecider();
         super.AiType = "PatternMatcher";

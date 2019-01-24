@@ -18,6 +18,9 @@ public class AntiRotationAI extends GameAI implements AIntf {
     private Move twoMovesBackPlayerMove;
     private int rotation = -1;
 
+    /**
+     * Creates an AI that attempts to track if the player is rotating in one direction, and returns the counter for the next element in the rotation pattern
+     */
     public AntiRotationAI() {
         super.AiType = "AntiRotationAI";
     }
