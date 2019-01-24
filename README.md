@@ -1,9 +1,9 @@
 # EssKayz-TiraLabra2019K
-[Projektin määrittelydokumentti](https://github.com/EssKayz/EssKayz-TiraLabra2019K/blob/master/Maarittelydokumentti.md)
+[Project definition document](https://github.com/EssKayz/EssKayz-TiraLabra2019K/blob/master/Maarittelydokumentti.md)
 
-[Viikkoraportit](https://github.com/EssKayz/EssKayz-TiraLabra2019K/tree/master/Reports)
+[Weekly Reports](https://github.com/EssKayz/EssKayz-TiraLabra2019K/tree/master/Reports)
 
-[Projektin online-toteutus (jos ei serveri ole kaatunut)](http://ohmipro.ddns.net:7777)
+[Click here to play the game (if the server is not down)](http://ohmipro.ddns.net:7777)
 
 CI component |Badge
 --------|---------
