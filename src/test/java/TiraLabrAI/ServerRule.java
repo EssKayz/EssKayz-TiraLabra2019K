@@ -19,7 +19,7 @@ class ServerRule extends ExternalResource {
         if (System.getProperty("os.name").matches("Windows 10")) {
             System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         }
-        
+
         this.app = SpringApplication.run(Main.class);
     }
 

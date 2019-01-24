@@ -38,7 +38,7 @@ public class Stepdefs {
             this.driver = new ChromeDriver();
             //this.driver = new HtmlUnitDriver(true);
         } else {
-            this.driver = new HtmlUnitDriver(true);
+            this.driver = new ChromeDriver();
         }
         baseUrl = "http://localhost:/";
         random = new Random();
