@@ -24,3 +24,6 @@ Mitä teen seuraavaksi?
 Käytetyt tunnit ~ 13h
 (olen ollut Lapissa viimeisen menneen viikon, joten käytin tällä viikolla enemmän aikaa opiskeluun, ja ensi viikolla toteutan suunnitellut asiat kun pääsee kunnon koneelle tekemään, jonka takia
 tälläkin listalla on vielä viime viikon asioita osittain. )
+ > Viime viikolla käytetyistä 25h'sta oli osittain tämänkin viikon ohjelmointia,
+ > sillä tiesin ettei tällä viikolla ole mahdollisuuksia ennen sunnuntaita päästä koodi-ahjon ääreen.
+
