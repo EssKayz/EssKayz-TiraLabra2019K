@@ -117,10 +117,25 @@ public class Controllers {
 
         Thread.sleep(100);
 
+        model.addAttribute("avgPercentage", Math.floor((averagePercentage() * 100) * 100) / 100);
         model.addAttribute("playerPercentage", Math.floor((win * 100) * 100) / 100);
         model.addAttribute("bestPercentage", Math.floor(bestPercentage() * 100) / 100);
         model.addAttribute("game", sessions.get(sessionID));
         return "situation :: scoresFrag";
+    }
+
+    public double averagePercentage() {
+        double playerScore = 0;
+        double aiScore = 0;
+        for (Game g : sessions.values()) {
+            playerScore += g.getPlayerScore();
+            aiScore += g.getAiScore();
+        }
+        double win = (double) playerScore / (aiScore + playerScore);
+        if (Double.isNaN(win)) {
+            return 0;
+        }
+        return win;
     }
 
     public double bestPercentage() {

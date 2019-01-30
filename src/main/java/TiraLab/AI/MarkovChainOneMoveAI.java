@@ -35,6 +35,8 @@ public class MarkovChainOneMoveAI extends GameAI implements AIntf {
         Random rand = new Random();
         float ranFloat = rand.nextFloat();
         Move selected;
+        
+        // compare random value to the value for lastMove (0 = rock, 1 = paper, 2 = scissors) in the markov chain, and return a countering move for the most likely human selection
         if (ranFloat <= markovChain[lastMove][1]) {
             selected = Move.SCISSORS;
         } else if (ranFloat <= markovChain[lastMove][2] + markovChain[lastMove][1]) {
@@ -49,6 +51,8 @@ public class MarkovChainOneMoveAI extends GameAI implements AIntf {
     @Override
     public void placeMove(String playerMove) {
         moveBeforeLast = lastMove;
+        
+        // Place the last player move to the lastMove parameter
         switch (playerMove) {
             case "Rock":
                 lastMove = 0;
@@ -72,7 +76,7 @@ public class MarkovChainOneMoveAI extends GameAI implements AIntf {
         //Increment the amount of times played by one
         timesPlayed[moveBeforeLast]++;
 
-        //Divide all values in the markovChain column J by timesPlayed[moveBeforeLast]
+        //Divide all values in the markovChain column J by timesPlayed[moveBeforeLast] to get a fraction value representing how often an value is selected
         for (int j = 0; j < 3; j++) {
             markovChain[moveBeforeLast][j] /= timesPlayed[moveBeforeLast];
         }

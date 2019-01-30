@@ -19,7 +19,9 @@ public class AntiRotationAI extends GameAI implements AIntf {
     private int rotation = -1;
 
     /**
-     * Creates an AI that attempts to track if the player is rotating in one direction, and returns the counter for the next element in the rotation pattern
+     * Creates an AI that attempts to track if the player is rotating in one
+     * direction, and returns the counter for the next element in the rotation
+     * pattern
      */
     public AntiRotationAI() {
         super.AiType = "AntiRotationAI";
@@ -32,22 +34,29 @@ public class AntiRotationAI extends GameAI implements AIntf {
         }
 
         String dir;
-        if (rotation == 0) {
-            dir = "Clockwise";
-        } else if (rotation == 1) {
-            dir = "AntiClockwise";
-        } else {
-            dir = "no specific pattern";
+        switch (rotation) {
+            case 0:
+                dir = "Clockwise";
+                break;
+            case 1:
+                dir = "AntiClockwise";
+                break;
+            default:
+                dir = "no specific pattern";
+                break;
         }
         System.out.println("Rotation AI : Player was going " + dir + " and their last move was " + lastPlayerMove + ", and the move before that was " + twoMovesBackPlayerMove);
 
+        // Check what the last player move was, and then if the player is currently showing signs of a rotating pattern, return the counter for the suspected next move
         switch (lastPlayerMove) {
             case PAPER: {
                 switch (rotation) {
+                    // If player is rotating clockwise, return the countering move for the next suspected move in the rotation
                     case 0: {
                         super.aiPreviousMove = Move.ROCK;
                         return Move.ROCK;
                     }
+                    // If player is rotating counterclockwise, return the countering move for the next suspected move in the rotation
                     case 1: {
                         super.aiPreviousMove = Move.PAPER;
                         return Move.PAPER;
@@ -57,10 +66,12 @@ public class AntiRotationAI extends GameAI implements AIntf {
 
             case ROCK: {
                 switch (rotation) {
+                    // If player is rotating clockwise, return the countering move for the next suspected move in the rotation
                     case 0: {
                         super.aiPreviousMove = Move.SCISSORS;
                         return Move.SCISSORS;
                     }
+                    // If player is rotating counterclockwise, return the countering move for the next suspected move in the rotation
                     case 1: {
                         super.aiPreviousMove = Move.ROCK;
                         return Move.ROCK;
@@ -70,10 +81,12 @@ public class AntiRotationAI extends GameAI implements AIntf {
 
             default: {
                 switch (rotation) {
+                    // If player is rotating clockwise, return the countering move for the next suspected move in the rotation
                     case 0: {
                         super.aiPreviousMove = Move.PAPER;
                         return Move.PAPER;
                     }
+                    // If player is rotating counterclockwise, return the countering move for the next suspected move in the rotation
                     case 1: {
                         super.aiPreviousMove = Move.SCISSORS;
                         return Move.SCISSORS;
@@ -83,6 +96,7 @@ public class AntiRotationAI extends GameAI implements AIntf {
             }
         }
 
+        // if player is not showing signs of rotation, return a random move
         Move rand = super.returnRandomMove();
         super.aiPreviousMove = rand;
         return rand;
@@ -90,18 +104,19 @@ public class AntiRotationAI extends GameAI implements AIntf {
 
     @Override
     public void placeMove(String playerMove) {
+        // figure out if there is a rotating pattern ongoing, and place the previous move as the move from two moves ago
         rotation = rotation(playerMove);
         twoMovesBackPlayerMove = lastPlayerMove;
         lastPlayerMove = super.decider.convertMove(playerMove);
     }
 
     /**
-     * Checks if the player is placing moves in a rotating pattern, and returns which way it is rotating
-     * -1 = no pattern
-     * 0 = clockwise
-     * 1 = counterClockwise
+     * Checks if the player is placing moves in a rotating pattern, and returns
+     * which way it is rotating -1 = no pattern 0 = clockwise 1 =
+     * counterClockwise
+     *
      * @param pMov
-     * @return 
+     * @return
      */
     private int rotation(String pMov) {
         // 0 = clockwise, 1 = anticlockwise
@@ -109,6 +124,7 @@ public class AntiRotationAI extends GameAI implements AIntf {
             return -1;
         }
 
+        // Check if the two previous moves show a rotating pattern
         Move pMove = super.decider.convertMove(pMov);
         switch (pMove) {
             case PAPER: {
