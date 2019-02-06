@@ -7,6 +7,9 @@ package TiraLab.AI;
 
 import TiraLab.Controllers.Move;
 import TiraLab.GameLogic.WinDecider;
+import TiraLab.Structures.ArrayLib;
+import TiraLab.Structures.MathLib;
+import TiraLab.Structures.StringMethods;
 import TiraLab.Structures.intQ;
 import java.util.Random;
 
@@ -17,9 +20,15 @@ import java.util.Random;
 public class GameAI {
 
     /**
-     * Tracks the amount of wins for the AI during the current session, reset when user wants to reset his game
+     * Tracks the amount of wins for the AI during the current session, reset
+     * when user wants to reset his game
      */
     public int wins;
+
+    // Libraries for all AI's to use for string manipulation etc
+    public MathLib mathLib;
+    public StringMethods Stringmeth;
+    public ArrayLib arrLib;
 
     /**
      * Tracks the previous move of the AI
@@ -33,12 +42,14 @@ public class GameAI {
     private final int shortTermSpan = 10;
 
     /**
-     * Creates an WinDecider object that classes will inherit to use the helper methods from
+     * Creates an WinDecider object that classes will inherit to use the helper
+     * methods from
      */
     public WinDecider decider;
 
     /**
-     * Creates a Queue that tracks the win history with the length of shortTermSpan
+     * Creates a Queue that tracks the win history with the length of
+     * shortTermSpan
      */
     public intQ shortTermWins = new intQ(shortTermSpan);
 
@@ -47,6 +58,9 @@ public class GameAI {
      */
     public GameAI() {
         this.decider = new WinDecider();
+        this.Stringmeth = new StringMethods();
+        this.mathLib = new MathLib();
+        this.arrLib = new ArrayLib();
     }
 
     /**
@@ -64,25 +78,28 @@ public class GameAI {
         shortTermWins.dequeue();
         shortTermWins.enqueue(0);
     }
-    
+
     /**
      * Reset the WinCounter of the AI
      */
-    public void resetWins(){
+    public void resetWins() {
         this.wins = 0;
     }
 
     /**
      * Returns the AI's short term memory Win Rate
-     * @return 
+     *
+     * @return
      */
     public double getShortTermWinRate() {
         return (double) shortTermWins.getContentSum() / shortTermSpan;
     }
 
     /**
-     * Checks if would have AI won, and places a win or loss accordingly to short term memory
-     * @param winningMove 
+     * Checks if would have AI won, and places a win or loss accordingly to
+     * short term memory
+     *
+     * @param winningMove
      */
     public void increaseWinRating(Move winningMove) {
         if (aiPreviousMove == winningMove) {
@@ -93,10 +110,10 @@ public class GameAI {
         }
     }
 
-    
     /**
      * Returns a random Move
-     * @return 
+     *
+     * @return
      */
     public Move returnRandomMove() {
         Random r = new Random();
@@ -115,7 +132,8 @@ public class GameAI {
 
     /**
      * returns AI score
-     * @return 
+     *
+     * @return
      */
     public int getWins() {
         return wins;

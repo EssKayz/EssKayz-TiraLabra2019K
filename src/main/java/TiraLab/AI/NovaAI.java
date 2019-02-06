@@ -24,7 +24,9 @@ public class NovaAI extends GameAI implements AIntf {
     private int strategyStays = 0;
 
     /**
-     * Creates an AI that records the history of the player's moves and score history, and attempts to counter the longest recognized repeated pattern where the player has won with a similar pattern
+     * Creates an AI that records the history of the player's moves and score
+     * history, and attempts to counter the longest recognized repeated pattern
+     * where the player has won with a similar pattern
      */
     public NovaAI() {
         super.AiType = "PlayerWinHistoryMatchAI";
@@ -39,7 +41,7 @@ public class NovaAI extends GameAI implements AIntf {
         String commonSub = longestRepeatingSubStr(playerMoveHistory);
         while (!commonSub.isEmpty()) {
             while (true) {
-                int indexOfSub = playerMoveHistory.indexOf(commonSub);
+                int indexOfSub = super.Stringmeth.indexOf(commonSub, playerMoveHistory);
                 char c = playerMoveHistory.charAt(indexOfSub + commonSub.length());
                 System.out.println("Longest common string was : " + commonSub + ", found first at index " + indexOfSub);
 
@@ -216,7 +218,7 @@ public class NovaAI extends GameAI implements AIntf {
         int stringLength = s.length();
         String[] suffixes = new String[stringLength];
         for (int index = 0; index < stringLength; index++) {
-            suffixes[index] = s.substring(index, stringLength);
+            suffixes[index] = super.Stringmeth.substring(s, index, stringLength);
         }
 
         Arrays.sort(suffixes);
@@ -225,7 +227,7 @@ public class NovaAI extends GameAI implements AIntf {
         for (int i = 0; i < stringLength - 1; i++) {
             String x = lcp(suffixes[i], suffixes[i + 1]);
             int playerMoves = playerMoveHistory.length();
-            int indeX = playerMoveHistory.lastIndexOf(x);
+            int indeX = super.Stringmeth.lastIndexOf(x, playerMoveHistory);
             if (x.length() > lrs.length() && (indeX + x.length() == playerMoveHistory.length())) {
                 lrs = x;
             }
@@ -244,9 +246,9 @@ public class NovaAI extends GameAI implements AIntf {
         int shortest = Math.min(s.length(), t.length());
         for (int index = 0; index < shortest; index++) {
             if (s.charAt(index) != t.charAt(index)) {
-                return s.substring(0, index);
+                return super.Stringmeth.substring(s, 0, index);
             }
         }
-        return s.substring(0, shortest);
+        return super.Stringmeth.substring(s, 0, shortest);
     }
 }

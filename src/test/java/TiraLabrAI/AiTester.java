@@ -5,10 +5,26 @@
  */
 package TiraLabrAI;
 
+import TiraLab.AI.AIntf;
+import TiraLab.AI.GameAI;
+import TiraLab.AI.RandomAI;
+import TiraLab.GameLogic.Game;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  *
  * @author ColdFish
  */
 public class AiTester {
-    
+
+    private Game game;
+    private RandomAI randAI;
+
+    @Before
+    public void setUp() throws ClassNotFoundException {
+
+    }
+
 }
