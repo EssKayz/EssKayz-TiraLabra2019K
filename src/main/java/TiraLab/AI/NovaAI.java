@@ -39,73 +39,67 @@ public class NovaAI extends GameAI implements AIntf {
         }
 
         String commonSub = longestRepeatingSubStr(playerMoveHistory);
-        while (!commonSub.isEmpty()) {
-            while (true) {
-                int indexOfSub = super.Stringmeth.indexOf(commonSub, playerMoveHistory);
-                char c = playerMoveHistory.charAt(indexOfSub + commonSub.length());
-                System.out.println("Longest common string was : " + commonSub + ", found first at index " + indexOfSub);
+        int indexOfSub = super.Stringmeth.indexOf(commonSub, playerMoveHistory);
+        char c = playerMoveHistory.charAt(indexOfSub + commonSub.length());
+        System.out.println("Longest common string was : " + commonSub + ", found first at index " + indexOfSub);
 
-                // Check what the score was last time situation was like this
-                switch (playerWinHistory.charAt(indexOfSub + commonSub.length())) {
-                    //If player both the last time and now, he will most likely go for the same strategy again
-                    case 'W': {
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
-                            return getCounterFor(c);
-                        }
+        // Check what the score was last time situation was like this
+        switch (playerWinHistory.charAt(indexOfSub + commonSub.length())) {
+            //If player both the last time and now, he will most likely go for the same strategy again
+            case 'W': {
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
+                    return getCounterFor(c);
+                }
 
-                        //If player won and then lost this time, he will most likely swap strategy
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
-                            return getAnythingBut(c);
-                        }
+                //If player won and then lost this time, he will most likely swap strategy
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
+                    return getAnythingBut(c);
+                }
 
-                        // If the player won then, and had a draw now, he will probably stick with it to win the next round
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
-                            return getCounterFor(c);
-                        }
-                    }
-
-                    case 'L': {
-                        //If player Lost the last time, and won this time, he will probably stick with the plan considering it worked
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
-                            return getCounterFor(c);
-                        }
-
-                        //If player lost back then, and lost now - he will most likely swap strategy
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
-                            return getAnythingBut(c);
-                        }
-
-                        //If player lost back then, and lost now - he will most likely stick with the plan
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
-                            return getCounterFor(c);
-                        }
-                    }
-
-                    case 'D': {
-                        // Player drew last time ,and won this time - he will probably stick with the plan
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
-                            return getCounterFor(c);
-                        }
-                        // Player drew last time, lost this time - he will probably change strategy
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
-                            return getAnythingBut(c);
-                        }
-
-                        // If he drew back then, and drew now - he will probably swap - so we stick with it
-                        if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
-                            Move m = super.decider.convertMove("" + c);
-                            super.aiPreviousMove = m;
-                            return m;
-                        }
-                    }
-                    default: {
-                        return null;
-                    }
+                // If the player won then, and had a draw now, he will probably stick with it to win the next round
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
+                    return getCounterFor(c);
                 }
             }
-        }
 
-        return null;
+            case 'L': {
+                //If player Lost the last time, and won this time, he will probably stick with the plan considering it worked
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
+                    return getCounterFor(c);
+                }
+
+                //If player lost back then, and lost now - he will most likely swap strategy
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
+                    return getAnythingBut(c);
+                }
+
+                //If player lost back then, and lost now - he will most likely stick with the plan
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
+                    return getCounterFor(c);
+                }
+            }
+
+            case 'D': {
+                // Player drew last time ,and won this time - he will probably stick with the plan
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
+                    return getCounterFor(c);
+                }
+                // Player drew last time, lost this time - he will probably change strategy
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
+                    return getAnythingBut(c);
+                }
+
+                // If he drew back then, and drew now - he will probably swap - so we stick with it
+                if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
+                    Move m = super.decider.convertMove("" + c);
+                    super.aiPreviousMove = m;
+                    return m;
+                }
+            }
+            default: {
+                return null;
+            }
+        }
     }
 
     /**
