@@ -215,8 +215,8 @@ public class NovaAI extends GameAI implements AIntf {
             suffixes[index] = super.Stringmeth.substring(s, index, stringLength);
         }
 
-        Arrays.sort(suffixes);
-
+        super.arrLib.sort(suffixes);
+        
         String lrs = "";
         for (int i = 0; i < stringLength - 1; i++) {
             String x = lcp(suffixes[i], suffixes[i + 1]);

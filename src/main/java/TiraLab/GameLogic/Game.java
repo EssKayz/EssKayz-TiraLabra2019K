@@ -8,14 +8,9 @@ package TiraLab.GameLogic;
 import TiraLab.AI.*;
 
 import TiraLab.Controllers.Move;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
-import java.util.Set;
 
 /**
  *
@@ -27,12 +22,13 @@ public class Game {
     private int aiScore;
     private int draws;
 
-    private List<AIntf> ais;
+    private AIntf[] ais;
     private String sessionID;
 
     /**
      * Creates a new Game session
-     * @param session 
+     *
+     * @param session
      */
     public Game(String session) {
         this.playerScore = 0;
@@ -41,16 +37,16 @@ public class Game {
         this.sessionID = session;
         initAIs();
     }
-    
-    public void resetScore(){
+
+    public void resetScore() {
         this.playerScore = 0;
         this.aiScore = 0;
         this.draws = 0;
         initAIs();
     }
-    
-    public void resetAIWins(){
-        for(AIntf ai : ais){
+
+    public void resetAIWins() {
+        for (AIntf ai : ais) {
             ai.resetWins();
         }
     }
@@ -59,34 +55,33 @@ public class Game {
         return sessionID;
     }
 
-    
-    
-    public List<AIntf> getAis() {
+    public AIntf[] getAis() {
         return ais;
     }
-    
-    
 
     /**
      * Initialize the AI's to be used for the session
      */
     public final void initAIs() {
-        ais = new ArrayList<>();
-        ais.add(new RandomAI());
-        ais.add(new MarkovChainOneMoveAI());
-        ais.add(new AntiRotationAI());
-        ais.add(new PlayerMirroringAI());
-        //
-        ais.add(new PathMatchAI(2));
-        ais.add(new PathMatchAI(5));
-        //
-        ais.add(new PatternMatchAI());
-        ais.add(new NovaAI());
+        ais = new AIntf[]{
+            new RandomAI(),
+            new MarkovChainOneMoveAI(),
+            new AntiRotationAI(),
+            new PlayerMirroringAI(),
+            //
+            new PathMatchAI(2),
+            new PathMatchAI(5),
+            //
+            new PatternMatchAI(),
+            new NovaAI()
+        };
     }
-    
+
     /**
-     * Returns a Move, that is selected by a voting procedure by the initialized AI interface implementations.
-     * @return 
+     * Returns a Move, that is selected by a voting procedure by the initialized
+     * AI interface implementations.
+     *
+     * @return
      */
     public Move getAIMove() {
         HashMap<Move, Double> votes = new HashMap<>();
@@ -139,19 +134,6 @@ public class Game {
             System.out.println("");
 
             votes.put(selection, votes.get(selection) + (winRate));
-
-            // Commented, maybe there is a possibility to reduce the amount of votes on things not likely to be good??
-//            switch (selection) {
-//                case PAPER:
-//                    votes.put(Move.PAPER, votes.get(Move.PAPER) + (winRate));
-//                    break;
-//                case ROCK:
-//                    votes.put(Move.ROCK, votes.get(Move.ROCK) + (1 * winRate));
-//                    break;
-//                case SCISSORS:
-//                    votes.put(Move.SCISSORS, votes.get(Move.SCISSORS) + (1 * winRate));
-//                    break;
-//            }
         };
 
         System.out.println("");
@@ -160,16 +142,6 @@ public class Game {
             totalVotes += Math.max(0, entry.getValue());
             System.out.println(entry.getKey().toString() + " got " + entry.getValue() + " votes");
         }
-        
-//        Commented out for same reason as above, what if we want to reduce odds of something, some day
-//        if (totalVotes <= 0) {
-//            System.out.println("");
-//            System.out.println("Not enough votes, giving random move..");
-//            Move r = ais.get(0).giveMove();
-//            System.out.println("Chosen move to be played was : " + r.toString());
-//            System.out.println("");
-//            return r;
-//        }
 
         double rock = Math.max(votes.get(Move.ROCK), totalVotes / 6);
         double paper = Math.max(votes.get(Move.PAPER), totalVotes / 6);
@@ -180,7 +152,6 @@ public class Game {
         System.out.println("Paper : " + rock + " - " + (rock + paper));
         System.out.println("Scissors : " + (rock + paper) + " - " + (scissors + rock + paper));
 
-        
         // Return a weighted random outcome, weights based on AI votes (So if no AI votes rock, rock will have a 0% probability to ocur, for example - or if all AI's agree on Rock - Rock will be 100% etc..)
         Random r = new Random();
         int x = r.nextInt(totalVotes);
@@ -202,8 +173,10 @@ public class Game {
     }
 
     /**
-     * Gives the move that the player played to all the the AI's, so they can adjust their decision making in the future
-     * @param move 
+     * Gives the move that the player played to all the the AI's, so they can
+     * adjust their decision making in the future
+     *
+     * @param move
      */
     public void placeMove(String move) {
         for (AIntf ai : ais) {
@@ -212,8 +185,11 @@ public class Game {
     }
 
     /**
-     * Increase player score by one, and tell all the AI's what the winning move against player would have been, so they can check if their vote would have won the round, and adjust accordingly.
-     * @param aiWinningMove 
+     * Increase player score by one, and tell all the AI's what the winning move
+     * against player would have been, so they can check if their vote would
+     * have won the round, and adjust accordingly.
+     *
+     * @param aiWinningMove
      */
     public void playerWins(Move aiWinningMove) {
         for (AIntf ai : ais) {
@@ -223,8 +199,11 @@ public class Game {
     }
 
     /**
-     * Increase draws by one, and tell all the AI's what the winning move against player would have been, so they can check if their vote would have won the round, and adjust accordingly.
-     * @param aiWinningMove 
+     * Increase draws by one, and tell all the AI's what the winning move
+     * against player would have been, so they can check if their vote would
+     * have won the round, and adjust accordingly.
+     *
+     * @param aiWinningMove
      */
     public void draw(Move aiWinningMove) {
         for (AIntf ai : ais) {
@@ -234,8 +213,11 @@ public class Game {
     }
 
     /**
-     * Increase AI score by one, and tell all the AI's what the winning move against player was, so they can check if their vote would have won the round, and adjust accordingly.
-     * @param aiWinningMove 
+     * Increase AI score by one, and tell all the AI's what the winning move
+     * against player was, so they can check if their vote would have won the
+     * round, and adjust accordingly.
+     *
+     * @param aiWinningMove
      */
     public void playerLoses(Move aiWinningMove) {
         for (AIntf ai : ais) {
@@ -246,7 +228,8 @@ public class Game {
 
     /**
      * returns the AI score
-     * @return 
+     *
+     * @return
      */
     public int getAiScore() {
         return aiScore;
@@ -254,7 +237,8 @@ public class Game {
 
     /**
      * returns the amount of draws
-     * @return 
+     *
+     * @return
      */
     public int getDraws() {
         return draws;
@@ -262,7 +246,8 @@ public class Game {
 
     /**
      * returns the player's score
-     * @return 
+     *
+     * @return
      */
     public int getPlayerScore() {
         return playerScore;
