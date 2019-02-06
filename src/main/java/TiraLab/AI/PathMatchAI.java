@@ -18,7 +18,9 @@ public class PathMatchAI extends GameAI implements AIntf {
     private int memoryLength;
 
     /**
-     * Creates an AI that attempts to match patterns that the player has played before, and counter those
+     * Creates an AI that attempts to match patterns that the player has played
+     * before, and counter those
+     *
      * @param memory the amount of moves kept in memory to find from history
      */
     public PathMatchAI(int memory) {
@@ -35,14 +37,15 @@ public class PathMatchAI extends GameAI implements AIntf {
 
         // Gets the last time that the same pattern happened as now
         // And then counts the amount of each respective move being made after the pattern, and then gives the one that happened most frequently
-        String pastMov = gamePlayerHistory.substring(gamePlayerHistory.length() - memoryLength, gamePlayerHistory.length());
+        String pastMov = super.Stringmeth.substring(gamePlayerHistory, gamePlayerHistory.length() - memoryLength, gamePlayerHistory.length());
         int r = 0;
         int p = 0;
         int s = 0;
         int lastIndex = 0;
 
         while (lastIndex > -1) {
-            lastIndex = gamePlayerHistory.indexOf(pastMov, lastIndex);
+            lastIndex = super.Stringmeth.indexOf(pastMov, gamePlayerHistory, lastIndex);
+
             if (lastIndex != -1) {
                 lastIndex += pastMov.length();
                 if (lastIndex + 1 < gamePlayerHistory.length()) {

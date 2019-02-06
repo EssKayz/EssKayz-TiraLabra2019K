@@ -33,7 +33,11 @@ public class StringMethods {
 
     public int indexOf(String toFind, String fullstring, int startIndex) {
         String sub = substring(fullstring, startIndex, fullstring.length());
-        return indexOf(toFind, sub) + startIndex;
+        int index = indexOf(toFind, sub);
+        if (index == -1) {
+            return -1;
+        }
+        return index + startIndex;
     }
 
     public int indexOf(String toFind, String fullstring) {
