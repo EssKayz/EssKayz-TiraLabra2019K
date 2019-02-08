@@ -72,6 +72,7 @@ public class GameAI {
     public Move getMetaStrategyModifiedMove(Move move) {
         MetaStrategy best = new P0();
         best.score = 0.001;
+        // Select the best metastragey by score
         for (MetaStrategy strat : metaStrats) {
             strat.previousMove = strat.getMove(move);
             if (strat.score > best.score) {

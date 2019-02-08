@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TiraLab.AI;
+package TiraLab.AI.Development;
+
+import java.util.Random;
 
 /**
  *
@@ -60,4 +62,11 @@ public class AInsults {
         "Never seen anyone play with a strategy so brainless as yours",
         "Atleast next time I play against an two-cell organizm, I'll know what to expect"
     };
+    
+    public String getInsult(int playerScore, int aiScore){
+        Random r = new Random();
+        
+        
+        return "";
+    }
 }
