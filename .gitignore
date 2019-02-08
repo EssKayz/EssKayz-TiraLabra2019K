@@ -8,4 +8,3 @@ bin/
 build/
 gradle.properties
 .nb-gradle-properties
-gradlew.bat
