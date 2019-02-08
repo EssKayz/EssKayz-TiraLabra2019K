@@ -8,8 +8,6 @@ package TiraLab.GameLogic;
 import TiraLab.AI.*;
 
 import TiraLab.Controllers.Move;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Random;
 
 /**
@@ -84,20 +82,18 @@ public class Game {
      * @return
      */
     public Move getAIMove() {
-        HashMap<Move, Double> votes = new HashMap<>();
-        votes.put(Move.ROCK, 0.0);
-        votes.put(Move.PAPER, 0.0);
-        votes.put(Move.SCISSORS, 0.0);
+        VoteMap map = new VoteMap();
 
         // Get a vote for each of the AI's
         System.out.println("Votes for session " + this.sessionID);
         for (AIntf ai : ais) {
             GameAI aitype = (GameAI) ai;
             Move selection = ai.giveMove();
-
             if (selection == null) {
                 continue;
             }
+            System.out.println(aitype.AiType + " votes for " + selection.name() + " before metastrategy");
+            selection = aitype.getMetaStrategyModifiedMove(selection);
 
             double shortTerm = aitype.getShortTermWinRate();
             double winRate = (double) ai.getWins() / (ai.getWins() + playerScore);
@@ -133,19 +129,19 @@ public class Game {
 
             System.out.println("");
 
-            votes.put(selection, votes.get(selection) + (winRate));
+            map.put(selection, winRate);
         };
 
         System.out.println("");
         int totalVotes = 0;
-        for (Entry<Move, Double> entry : votes.entrySet()) {
+        for (Vote entry : map.getVotes()) {
             totalVotes += Math.max(0, entry.getValue());
-            System.out.println(entry.getKey().toString() + " got " + entry.getValue() + " votes");
+            System.out.println(entry.getKey() + " got " + entry.getValue() + " votes");
         }
 
-        double rock = Math.max(votes.get(Move.ROCK), totalVotes / 6);
-        double paper = Math.max(votes.get(Move.PAPER), totalVotes / 6);
-        double scissors = Math.max(votes.get(Move.SCISSORS), totalVotes / 6);
+        double rock = Math.max(map.get(Move.ROCK), totalVotes / 6);
+        double paper = Math.max(map.get(Move.PAPER), totalVotes / 6);
+        double scissors = Math.max(map.get(Move.SCISSORS), totalVotes / 6);
 
         System.out.println("");
         System.out.println("Rock : 0 - " + rock);
@@ -168,6 +164,13 @@ public class Game {
 
         Move chosen = given;
         System.out.println("Chosen move to be played was : " + chosen.toString());
+
+        // Make AI random for the first 6 rounds while other AI's have a chance to gather data
+        if (aiScore + playerScore + draws <= 6) {
+            System.out.println("First five rounds, returning random move!");
+            RandomAI randy = new RandomAI();
+            return randy.giveMove();
+        }
 
         return chosen;
     }

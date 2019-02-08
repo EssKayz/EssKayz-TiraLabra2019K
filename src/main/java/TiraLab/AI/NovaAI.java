@@ -29,11 +29,12 @@ public class NovaAI extends GameAI implements AIntf {
      * where the player has won with a similar pattern
      */
     public NovaAI() {
-        super.AiType = "PlayerWinHistoryMatchAI";
+        super.AiType = "NovaAI";
     }
 
     @Override
     public Controllers.Move giveMove() {
+        Move returnable = null;
         if (playerWinHistory.length() < 3) {
             return null;
         }
@@ -48,58 +49,69 @@ public class NovaAI extends GameAI implements AIntf {
             //If player both the last time and now, he will most likely go for the same strategy again
             case 'W': {
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
-                    return getCounterFor(c);
+                    returnable = getCounterFor(c);
+                    break;
                 }
 
                 //If player won and then lost this time, he will most likely swap strategy
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
-                    return getAnythingBut(c);
+                    returnable = getAnythingBut(c);
+                    break;
                 }
 
                 // If the player won then, and had a draw now, he will probably stick with it to win the next round
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
-                    return getCounterFor(c);
+                    returnable = getCounterFor(c);
+                    break;
                 }
             }
 
             case 'L': {
                 //If player Lost the last time, and won this time, he will probably stick with the plan considering it worked
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
-                    return getCounterFor(c);
+                    returnable = getCounterFor(c);
+                    break;
                 }
 
                 //If player lost back then, and lost now - he will most likely swap strategy
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
-                    return getAnythingBut(c);
+                    returnable = getAnythingBut(c);
+                    break;
                 }
 
                 //If player lost back then, and lost now - he will most likely stick with the plan
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
-                    return getCounterFor(c);
+                    returnable = getCounterFor(c);
+                    break;
                 }
             }
 
             case 'D': {
                 // Player drew last time ,and won this time - he will probably stick with the plan
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'W') {
-                    return getCounterFor(c);
+                    returnable = getCounterFor(c);
+                    break;
                 }
                 // Player drew last time, lost this time - he will probably change strategy
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'L') {
-                    return getAnythingBut(c);
+                    returnable = getAnythingBut(c);
+                    break;
                 }
 
                 // If he drew back then, and drew now - he will probably swap - so we stick with it
                 if (playerWinHistory.charAt(playerWinHistory.length() - 1) == 'D') {
                     Move m = super.decider.convertMove("" + c);
                     super.aiPreviousMove = m;
-                    return m;
+                    returnable = m;
+                    break;
                 }
             }
             default: {
                 return null;
             }
         }
+        
+        return returnable;
     }
 
     /**
@@ -216,7 +228,7 @@ public class NovaAI extends GameAI implements AIntf {
         }
 
         super.arrLib.sort(suffixes);
-        
+
         String lrs = "";
         for (int i = 0; i < stringLength - 1; i++) {
             String x = lcp(suffixes[i], suffixes[i + 1]);
