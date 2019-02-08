@@ -110,7 +110,7 @@ public class GameAI {
     /**
      * Returns the AI's short term memory Win Rate
      *
-     * @return
+     * @return returns the short term winrate of the AI in %
      */
     public double getShortTermWinRate() {
         return (double) shortTermWins.getContentSum() / shortTermSpan;
@@ -124,7 +124,7 @@ public class GameAI {
      * Checks if would have AI won, and places a win or loss accordingly to
      * short term memory
      *
-     * @param winningMove
+     * @param winningMove the move that would have won the player
      */
     public void increaseWinRating(Move winningMove) {
         for (MetaStrategy strat : metaStrats) {
@@ -160,7 +160,7 @@ public class GameAI {
     /**
      * Returns a random Move
      *
-     * @return
+     * @return Returns a random Move
      */
     public Move returnRandomMove() {
         Random r = new Random();

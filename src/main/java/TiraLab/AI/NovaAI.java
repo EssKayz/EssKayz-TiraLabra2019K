@@ -116,10 +116,9 @@ public class NovaAI extends GameAI implements AIntf {
 
     /**
      * Returns a move that is any move but the move characterized in the move
-     * param
      *
-     * @param move
-     * @return
+     * @param move a char, 'r', 'p', or 's' representing Rock Paper or Scissors
+     * @return returns any move except the move specified in the param move
      */
     public Move getAnythingBut(char move) {
         double r = 0.5;
@@ -166,8 +165,8 @@ public class NovaAI extends GameAI implements AIntf {
     /**
      * returns the move that counters the move characterized in param 'move'
      *
-     * @param move
-     * @return
+     * @param move a char, 'r', 'p', or 's' representing Rock Paper or Scissors
+     * @return returns the move that counters the move from parameter
      */
     public Move getCounterFor(char move) {
         Move m = null;
@@ -217,8 +216,8 @@ public class NovaAI extends GameAI implements AIntf {
     /**
      * returns the longest repeating substring within the string 's'
      *
-     * @param s
-     * @return
+     * @param s the string to search from
+     * @return returns the longest repeating substring in param s
      */
     public String longestRepeatingSubStr(String s) {
         int stringLength = s.length();
@@ -244,9 +243,9 @@ public class NovaAI extends GameAI implements AIntf {
     /**
      * returns the longest common prefix for two strings, s and t
      *
-     * @param s
-     * @param t
-     * @return
+     * @param s one string
+     * @param t another string
+     * @return returns the longest common prefix of s and t
      */
     public String lcp(String s, String t) {
         int shortest = Math.min(s.length(), t.length());

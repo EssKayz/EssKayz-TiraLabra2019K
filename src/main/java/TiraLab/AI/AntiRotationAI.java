@@ -115,8 +115,8 @@ public class AntiRotationAI extends GameAI implements AIntf {
      * which way it is rotating -1 = no pattern 0 = clockwise 1 =
      * counterClockwise
      *
-     * @param pMov
-     * @return
+     * @param pMov the last player move
+     * @return returns -1 = no pattern,  0 = clockwise or 1 =counterClockwise
      */
     private int rotation(String pMov) {
         // 0 = clockwise, 1 = anticlockwise

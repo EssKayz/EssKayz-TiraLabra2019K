@@ -26,7 +26,7 @@ public class Game {
     /**
      * Creates a new Game session
      *
-     * @param session
+     * @param session the identifier of the game session
      */
     public Game(String session) {
         this.playerScore = 0;
@@ -79,7 +79,7 @@ public class Game {
      * Returns a Move, that is selected by a voting procedure by the initialized
      * AI interface implementations.
      *
-     * @return
+     * @return returns the Move the AI's collectively chose
      */
     public Move getAIMove() {
         VoteMap map = new VoteMap();
@@ -179,7 +179,7 @@ public class Game {
      * Gives the move that the player played to all the the AI's, so they can
      * adjust their decision making in the future
      *
-     * @param move
+     * @param movemove to be placed to the AI's memory (those that use the information)
      */
     public void placeMove(String move) {
         for (AIntf ai : ais) {
@@ -192,7 +192,7 @@ public class Game {
      * against player would have been, so they can check if their vote would
      * have won the round, and adjust accordingly.
      *
-     * @param aiWinningMove
+     * @param aiWinningMove the move that would have won for the AI
      */
     public void playerWins(Move aiWinningMove) {
         for (AIntf ai : ais) {
@@ -206,7 +206,7 @@ public class Game {
      * against player would have been, so they can check if their vote would
      * have won the round, and adjust accordingly.
      *
-     * @param aiWinningMove
+     * @param aiWinningMove the move that would have won for the AI
      */
     public void draw(Move aiWinningMove) {
         for (AIntf ai : ais) {
@@ -220,7 +220,7 @@ public class Game {
      * against player was, so they can check if their vote would have won the
      * round, and adjust accordingly.
      *
-     * @param aiWinningMove
+     * @param aiWinningMove the move that would have won for the AI
      */
     public void playerLoses(Move aiWinningMove) {
         for (AIntf ai : ais) {

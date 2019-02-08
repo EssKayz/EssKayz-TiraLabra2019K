@@ -22,20 +22,20 @@ public interface AIntf {
     
     /**
      * Gives the player move to the AI, so it can adjust future predictions
-     * @param playerMove 
+     * @param playerMove the last player move
      */
     public void placeMove(String playerMove);
     
     
     /**
      * Increase the winRating of the AI, if the AI would have won against prevMove 
-     * @param prevMove 
+     * @param prevMove the previous move of the AI
      */
     public void increaseWinRating(Move prevMove);
     
     /**
      * Returns the amount of times the specific AI would have won if it's choises were always selected
-     * @return 
+     * @return return the amount of wins of the AI
      */
     public int getWins();
     
