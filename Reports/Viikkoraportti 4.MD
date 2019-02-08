@@ -15,6 +15,7 @@ Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehell
 
 Mitä teen seuraavaksi?
 1. > Tekoälyjen logiikan parantelua ja tweakkailua
+1. > Refaktorointia ja metodeiden siistimistä
 2. > Eri tekoälyjen aikavaativuuslaskentaa
 2. > Testausdokumentaation alustaminen
 3. > Metastrategioiden parantelu
