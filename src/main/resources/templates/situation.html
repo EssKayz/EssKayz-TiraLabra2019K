@@ -1,5 +1,5 @@
 					  <div th:fragment="imagesFrag" class="row">
-						  <div class="col-sm">
+						  <div class="col-6">
 								<div class="card" id="yourCard">
 									<div th:switch="${playerWins}">
 										<img th:case="1" class="card-img-top img-fluid p-a-1" style="background-color: green" th:src="${pMove.imgLink}" alt="Card image cap" id="yourChoiceImg" />
@@ -12,7 +12,7 @@
 									</div>
 								</div>
 						   </div>
-						  <div class="col-sm">
+						  <div class="col-6">
 								<div class="card" id="myCard">
 									<div th:switch="${playerWins}">
 										<img th:case="-1" class="card-img-top img-fluid p-a-1" style="background-color: green" th:src="${move.imgLink}" alt="Card image cap" id="myChoiceImg" />
