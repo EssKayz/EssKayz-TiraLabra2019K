@@ -140,13 +140,18 @@ public class Stepdefs {
     public void user_plays_rounds_agains_using_an_pattern(String rounds, String patternName) throws Throwable {
         switch (patternName) {
             case "repeating": {
-                playRepeatingPattern(Integer.parseInt(rounds));
+                playRepeatingPattern(Integer.parseInt(rounds), "pprpsprpr");
             }
         }
     }
 
-    public void playRepeatingPattern(int rounds) throws Throwable {
-        String[] clicks = {"btnPaper", "btnPaper", "btnRock", "btnPaper", "btnScissors"};
+    @Given("^user plays \"([^\"]*)\" rounds against using the pattern \"([^\"]*)\"$")
+    public void user_plays_rounds_against_using_the_pattern(String rounds, String pattern) throws Throwable {
+        playRepeatingPattern(Integer.parseInt(rounds), pattern);
+    }
+
+    public void playRepeatingPattern(int rounds, String pattern) throws Throwable {
+        String[] clicks = transformIntoButtons(pattern);
         int i = 0;
         int x = clicks.length;
         int y = 0;
@@ -159,6 +164,25 @@ public class Stepdefs {
             }
             i++;
         }
+    }
+
+    public String[] transformIntoButtons(String shortMoveNames) {
+        String[] buttonClicks = new String[shortMoveNames.length()];
+        for (int i = 0; i < shortMoveNames.length(); i++) {
+            if (shortMoveNames.charAt(i) == ('r')) {
+                buttonClicks[i] = "btnRock";
+                continue;
+            }
+            if (shortMoveNames.charAt(i) == ('p')) {
+                buttonClicks[i] = "btnPaper";
+                continue;
+            }
+            if (shortMoveNames.charAt(i) == ('s')) {
+                buttonClicks[i] = "btnScissors";
+                continue;
+            }
+        }
+        return buttonClicks;
     }
 
     @Then("^player loses$")
