@@ -11,7 +11,7 @@ Mitä opin tällä viikolla / tänään?
 
 Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehellisesti, koska saat tarvittaessa apua tämän kohdan perusteella.
 1. > En onnistunut repositoriosta Gradle tiedostojen poistossa, sillä heti kun jotakin yritti positaa, meni Travis CI sekaisin, eikä sen takia enää saanut Code Coverage reportteja aikaiseksi yms
-1. > Lasketaanko HashMap tai Random tietorakenteiksi?
+1. > Lasketaanko Random luokka tietorakenteeksi?
 
 Mitä teen seuraavaksi?
 1. > Tekoälyjen logiikan parantelua ja tweakkailua
