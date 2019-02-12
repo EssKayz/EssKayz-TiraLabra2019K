@@ -139,9 +139,9 @@ public class Game {
             System.out.println(entry.getKey() + " got " + entry.getValue() + " votes");
         }
 
-        double rock = Math.max(map.get(Move.ROCK), totalVotes / 6);
-        double paper = Math.max(map.get(Move.PAPER), totalVotes / 6);
-        double scissors = Math.max(map.get(Move.SCISSORS), totalVotes / 6);
+        double rock = Math.max(map.get(Move.ROCK), 0);
+        double paper = Math.max(map.get(Move.PAPER), 0);
+        double scissors = Math.max(map.get(Move.SCISSORS), 0);
 
         System.out.println("");
         System.out.println("Rock : 0 - " + rock);
