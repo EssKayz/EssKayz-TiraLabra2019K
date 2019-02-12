@@ -7,7 +7,6 @@ package TiraLab.AI;
 
 import TiraLab.Controllers;
 import TiraLab.Controllers.Move;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -30,6 +29,11 @@ public class NovaAI extends GameAI implements AIntf {
      */
     public NovaAI() {
         super.AiType = "NovaAI";
+    }
+
+    @Override
+    public Move getMetaStrategyModifiedMove(Move move) {
+        return move;
     }
 
     @Override
@@ -110,7 +114,7 @@ public class NovaAI extends GameAI implements AIntf {
                 return null;
             }
         }
-        
+
         return returnable;
     }
 
