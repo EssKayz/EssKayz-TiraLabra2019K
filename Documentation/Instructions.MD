@@ -7,4 +7,8 @@ How to use the RPS AI program
 5. Start playing by pressing the Rock / Paper / Scissors buttons.
 
 There is also an somewhat cryptic site http://localhost:7777/sessions where you can view the Game statistics for each session, where you can see how well each AI would have played 
-in that specific session, if they were the only AI responsible for the selections.
+in that specific session, if they were the only AI responsible for the selections.\
+
+Tests will not be able to run through NetBeans Test button.
+For tests, refer to the TestDocumentation document, which contain instructions on
+how to reproduce the tests.
