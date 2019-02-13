@@ -19,8 +19,6 @@ public class NovaAI extends GameAI implements AIntf {
     private String playerMoveHistory = "";
     private String playerWinHistory = "";
     private int playerWonLastRound = 0;
-    private int strategySwaps = 0;
-    private int strategyStays = 0;
 
     /**
      * Creates an AI that records the history of the player's moves and score
