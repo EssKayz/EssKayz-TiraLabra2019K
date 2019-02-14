@@ -82,7 +82,7 @@ public class Game {
      * @return returns the Move the AI's collectively chose
      */
     public Move getAIMove() {
-        VoteMap map = new VoteMap();
+        VoteMap voteMap = new VoteMap();
 
         // Get a vote for each of the AI's
         System.out.println("Votes for session " + this.sessionID);
@@ -103,35 +103,37 @@ public class Game {
 
             shortTerm = Math.floor((shortTerm * 100));
             winRate = Math.max((Math.floor((winRate * 100))), 0.1);
-
             if (winRate <= 47 && shortTerm <= 20 || shortTerm <= 10 && (winRate < 52)) {
                 System.out.println(aitype.AiType + "'s Winrate was too low (" + winRate + " : " + shortTerm + ") - skipping vote");
                 System.out.println("");
                 continue;
             }
 
-            System.out.println(aitype.AiType + " votes for " + selection.toString() + " with a short term winrate of " + (shortTerm) + "%, and a long term winrate of " + winRate + "%");
+            adjustVote(winRate, shortTerm, aitype, selection);
 
-            // Increases the weighting of votes for AI's that are performing well!
-            if (winRate > 57 && shortTerm > 20) {
-                winRate += 15;
-            }
-            if (winRate > 65 && shortTerm > 25) {
-                winRate += winRate / 3;
-            }
-            if (shortTerm >= 60) {
-                winRate *= 1.25;
-                shortTerm += 2;
-            }
-
-            winRate *= Math.max((shortTerm), 0.005);
-            System.out.println(aitype.AiType + " influenced vote on " + selection.toString() + " by " + winRate + " points");
-
-            System.out.println("");
-
-            map.put(selection, winRate);
+            voteMap.put(selection, winRate);
         };
 
+        Move chosen = getWeightedRandomMove(voteMap);
+        System.out.println("Chosen move to be played was : " + chosen.toString());
+
+        // Make AI random for the first 6 rounds while other AI's have a chance to gather data
+        if (aiScore + playerScore + draws <= 6) {
+            System.out.println("First five rounds, returning random move!");
+            RandomAI randy = new RandomAI();
+            return randy.giveMove();
+        }
+
+        return chosen;
+    }
+
+    /**
+     * get a Move randomly weighted acording to the votes of the AI's
+     *
+     * @param map the vote map containing all votes
+     * @return a Move, selected by weighted random
+     */
+    public Move getWeightedRandomMove(VoteMap map) {
         System.out.println("");
         int totalVotes = 0;
         for (Vote entry : map.getVotes()) {
@@ -162,17 +164,31 @@ public class Game {
             given = Move.SCISSORS;
         }
 
-        Move chosen = given;
-        System.out.println("Chosen move to be played was : " + chosen.toString());
+        return given;
+    }
 
-        // Make AI random for the first 6 rounds while other AI's have a chance to gather data
-        if (aiScore + playerScore + draws <= 6) {
-            System.out.println("First five rounds, returning random move!");
-            RandomAI randy = new RandomAI();
-            return randy.giveMove();
+    public double adjustVote(double winRate, double shortTerm, GameAI aitype, Move selection) {
+
+        System.out.println(aitype.AiType + " votes for " + selection.toString() + " with a short term winrate of " + (shortTerm) + "%, and a long term winrate of " + winRate + "%");
+
+        // Increases the weighting of votes for AI's that are performing well!
+        if (winRate > 57 && shortTerm > 20) {
+            winRate += 15;
+        }
+        if (winRate > 65 && shortTerm > 25) {
+            winRate += winRate / 3;
+        }
+        if (shortTerm >= 60) {
+            winRate *= 1.25;
+            shortTerm += 2;
         }
 
-        return chosen;
+        winRate *= Math.max((shortTerm), 0.005);
+        System.out.println(aitype.AiType + " influenced vote on " + selection.toString() + " by " + winRate + " points");
+
+        System.out.println("");
+
+        return winRate;
     }
 
     /**
