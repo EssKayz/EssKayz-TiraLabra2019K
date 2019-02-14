@@ -5,36 +5,37 @@
  */
 package TiraLab.AI;
 
+import TiraLab.Structures.RandomGen;
 import TiraLab.Controllers;
 import TiraLab.Controllers.Move;
 import TiraLab.GameLogic.WinDecider;
-import java.util.Random;
 
 /**
  *
  * @author ColdFish
  */
 public class PatternMatchAI extends GameAI implements AIntf {
-    
+
     private int pChance;
     private int rChance;
-    
+
     private int repeatAfterWin = 0;
     private int repeatAfterLose = 0;
     private int repeatOnDraw = 0;
     private int alternateAfterWin = 0;
     private int alternateAfterLose = 0;
     private int alternateAfterDraw = 0;
-    
+
     private int matchRate = 5;
     private int histLimit = 3;
-    
+
     private WinDecider decider;
-    
+
     private String lastPlayerMove;
-    
+
     /**
-     * Creates an AI that keeps track of what the player tends to do when he wins or loses, and attempts to counter that
+     * Creates an AI that keeps track of what the player tends to do when he
+     * wins or loses, and attempts to counter that
      */
     public PatternMatchAI() {
         decider = new WinDecider();
@@ -42,13 +43,13 @@ public class PatternMatchAI extends GameAI implements AIntf {
         pChance = 33;
         rChance = 33;
     }
-    
+
     @Override
     public Controllers.Move giveMove() {
-        Random r = new Random();
-        int randomized = r.nextInt(100);
+        RandomGen r = new RandomGen();
+        int randomized = r.getRandomInt(100);
         Move aiMove = null;
-        
+
         if (randomized < pChance) {
             aiMove = Move.PAPER;
         } else if (randomized < pChance + rChance) {
@@ -56,24 +57,26 @@ public class PatternMatchAI extends GameAI implements AIntf {
         } else {
             aiMove = Move.SCISSORS;
         }
-        
+
         super.aiPreviousMove = aiMove;
         return aiMove;
     }
-    
+
     @Override
     public void placeMove(String playerMove) {
         Move pMove = decider.convertMove(playerMove);
-        
+
         checkPatterns(pMove, playerMove);
-        
+
         adjustStrategy(playerMove);
-        
+
         lastPlayerMove = playerMove;
     }
-    
+
     /**
-     * Check if the player won, and if the player swaps strategy when losing or winning, and adjusts the decision making acordingly
+     * Check if the player won, and if the player swaps strategy when losing or
+     * winning, and adjusts the decision making acordingly
+     *
      * @param pMove the player move last round
      * @param playerMoveThisRound player move this round
      */
@@ -100,7 +103,7 @@ public class PatternMatchAI extends GameAI implements AIntf {
                 }
                 break;
             }
-            
+
             case 0: {
                 if (playerMoveThisRound.equals(lastPlayerMove)) {
                     repeatOnDraw++;
@@ -111,9 +114,10 @@ public class PatternMatchAI extends GameAI implements AIntf {
             }
         }
     }
-    
+
     /**
      * Adjusts the AI strategy based on the previous player move
+     *
      * @param playerMove the player move from this round
      */
     private void adjustStrategy(String playerMove) {
@@ -146,7 +150,7 @@ public class PatternMatchAI extends GameAI implements AIntf {
                     }
                 }
             }
-            
+
             case PAPER: {
                 switch (decider.playerWins(pMove, aiPreviousMove)) {
                     //Player Win with paper
@@ -174,7 +178,7 @@ public class PatternMatchAI extends GameAI implements AIntf {
                     }
                 }
             }
-            
+
             case SCISSORS: {
                 switch (decider.playerWins(pMove, aiPreviousMove)) {
                     //Player Lose with scissors
@@ -204,5 +208,5 @@ public class PatternMatchAI extends GameAI implements AIntf {
             }
         }
     }
-    
+
 }

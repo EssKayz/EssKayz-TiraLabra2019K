@@ -5,7 +5,8 @@
  */
 package TiraLab.AI.Development;
 
-import java.util.Random;
+import TiraLab.Structures.RandomGen;
+
 
 /**
  *
@@ -64,7 +65,7 @@ public class AInsults {
     };
     
     public String getInsult(int playerScore, int aiScore){
-        Random r = new Random();
+        RandomGen r = new RandomGen();
         
         
         return "";

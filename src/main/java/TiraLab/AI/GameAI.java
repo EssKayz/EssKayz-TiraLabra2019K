@@ -5,6 +5,7 @@
  */
 package TiraLab.AI;
 
+import TiraLab.Structures.RandomGen;
 import TiraLab.Controllers.Move;
 import TiraLab.GameLogic.WinDecider;
 import TiraLab.MetaStrat.*;
@@ -12,7 +13,6 @@ import TiraLab.Structures.ArrayLib;
 import TiraLab.Structures.MathLib;
 import TiraLab.Structures.StringMethods;
 import TiraLab.Structures.intQ;
-import java.util.Random;
 
 /**
  *
@@ -163,12 +163,12 @@ public class GameAI {
      * @return Returns a random Move
      */
     public Move returnRandomMove() {
-        Random r = new Random();
-        double d = r.nextDouble();
+        RandomGen r = new RandomGen();
+        int d = r.getRandomInt(4);
         Move given;
-        if (d < 0.33) {
+        if (d < 1) {
             given = Move.ROCK;
-        } else if (d < 0.67) {
+        } else if (d < 2) {
             given = Move.SCISSORS;
         } else {
             given = Move.PAPER;

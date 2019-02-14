@@ -1,13 +1,13 @@
 package TiraLab;
 
 import TiraLab.AI.*;
+import TiraLab.Structures.RandomGen;
 import TiraLab.GameLogic.Game;
 import TiraLab.GameLogic.WinDecider;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Random;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,8 +52,8 @@ public class Controllers {
     public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
         String sessionID = getSession(request);
         if (sessionID == null) {
-            Random r = new Random();
-            int rr = r.nextInt(Integer.MAX_VALUE);
+            RandomGen r = new RandomGen();
+            int rr = r.getRandomInt(Integer.MAX_VALUE);
             Cookie cookie = new Cookie("GameID", String.valueOf(rr));
             cookie.setValue(String.valueOf(rr));
 
@@ -96,8 +96,8 @@ public class Controllers {
     public String scores(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam Optional<String> playerMove) throws InterruptedException {
         String sessionID = getSession(request);
         if (sessionID == null) {
-            Random r = new Random();
-            int rr = r.nextInt(Integer.MAX_VALUE);
+            RandomGen r = new RandomGen();
+            int rr = r.getRandomInt(Integer.MAX_VALUE);
             Cookie cookie = new Cookie("GameID", String.valueOf(rr));
             cookie.setValue(String.valueOf(rr));
 
@@ -153,8 +153,8 @@ public class Controllers {
     public String images(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam Optional<String> playerMove) {
         String sessionID = getSession(request);
         if (sessionID == null) {
-            Random r = new Random();
-            int rr = r.nextInt(Integer.MAX_VALUE);
+            RandomGen r = new RandomGen();
+            int rr = r.getRandomInt(Integer.MAX_VALUE);
             Cookie cookie = new Cookie("GameID", String.valueOf(rr));
             cookie.setValue(String.valueOf(rr));
 

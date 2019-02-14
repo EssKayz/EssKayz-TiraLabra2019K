@@ -5,9 +5,9 @@
  */
 package TiraLab.AI;
 
+import TiraLab.Structures.RandomGen;
 import TiraLab.Controllers;
 import TiraLab.Controllers.Move;
-import java.util.Random;
 
 /**
  *
@@ -32,10 +32,10 @@ public class MarkovChainOneMoveAI extends GameAI implements AIntf {
 
     @Override
     public Move giveMove() {
-        Random rand = new Random();
-        float ranFloat = rand.nextFloat();
+        RandomGen r = new RandomGen();
+        float ranFloat = r.getRandomFloat();
         Move selected;
-        
+
         // compare random value to the value for lastMove (0 = rock, 1 = paper, 2 = scissors) in the markov chain, and return a countering move for the most likely human selection
         if (ranFloat <= markovChain[lastMove][1]) {
             selected = Move.SCISSORS;
@@ -51,7 +51,7 @@ public class MarkovChainOneMoveAI extends GameAI implements AIntf {
     @Override
     public void placeMove(String playerMove) {
         moveBeforeLast = lastMove;
-        
+
         // Place the last player move to the lastMove parameter
         switch (playerMove) {
             case "Rock":

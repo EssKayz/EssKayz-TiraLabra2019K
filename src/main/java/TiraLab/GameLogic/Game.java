@@ -6,9 +6,9 @@
 package TiraLab.GameLogic;
 
 import TiraLab.AI.*;
+import TiraLab.Structures.RandomGen;
 
 import TiraLab.Controllers.Move;
-import java.util.Random;
 
 /**
  *
@@ -149,8 +149,8 @@ public class Game {
         System.out.println("Scissors : " + (rock + paper) + " - " + (scissors + rock + paper));
 
         // Return a weighted random outcome, weights based on AI votes (So if no AI votes rock, rock will have a 0% probability to ocur, for example - or if all AI's agree on Rock - Rock will be 100% etc..)
-        Random r = new Random();
-        int x = r.nextInt(totalVotes);
+        RandomGen r = new RandomGen();
+        int x = r.getRandomInt(totalVotes);
         System.out.println("Randomizer got : " + x);
         System.out.println("");
         Move given;
@@ -179,7 +179,8 @@ public class Game {
      * Gives the move that the player played to all the the AI's, so they can
      * adjust their decision making in the future
      *
-     * @param movemove to be placed to the AI's memory (those that use the information)
+     * @param movemove to be placed to the AI's memory (those that use the
+     * information)
      */
     public void placeMove(String move) {
         for (AIntf ai : ais) {

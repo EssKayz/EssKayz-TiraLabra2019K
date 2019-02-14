@@ -5,10 +5,10 @@
  */
 package TiraLab.AI;
 
+import TiraLab.Structures.RandomGen;
 import TiraLab.Controllers;
 import TiraLab.Controllers.Move;
 import TiraLab.GameLogic.WinDecider;
-import java.util.Random;
 
 /**
  *
@@ -55,8 +55,8 @@ public class PlayerMirroringAI extends GameAI implements AIntf {
             }
         } else {
             // If he lost, he is more likely to swap!
-            Random r = new Random();
-            double d = r.nextDouble();
+            RandomGen r = new RandomGen();
+            float d = r.getRandomFloat();
             switch (lastPlayerMove) {
                 case PAPER: {
                     if (d < 0.5) {
@@ -110,7 +110,5 @@ public class PlayerMirroringAI extends GameAI implements AIntf {
             }
         }
     }
-
-
 
 }

@@ -7,16 +7,12 @@ package TiraLab.AI;
 
 import TiraLab.Controllers;
 import TiraLab.Controllers.Move;
-import java.util.Random;
 
 /**
  *
  * @author ColdFish
  */
 public class RandomAI extends GameAI implements AIntf {
-
-    Random r = new Random();
-
     /**
      * Creates an AI that returns a random Move enum
      */

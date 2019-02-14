@@ -5,9 +5,9 @@
  */
 package TiraLab.AI;
 
+import TiraLab.Structures.RandomGen;
 import TiraLab.Controllers;
 import TiraLab.Controllers.Move;
-import java.util.Random;
 
 /**
  *
@@ -128,8 +128,8 @@ public class NovaAI extends GameAI implements AIntf {
         double s = 0.5;
         Move m = null;
 
-        Random rand = new Random();
-        double d = rand.nextDouble();
+        RandomGen rand = new RandomGen();
+        float d = rand.getRandomFloat();
 
         if (move == 'R') {
             if (d < 0.5) {

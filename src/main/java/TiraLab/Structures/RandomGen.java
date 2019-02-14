@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TiraLab.AI.Development;
+package TiraLab.Structures;
 
 /**
  *
@@ -17,6 +17,7 @@ public class RandomGen {
 
     /**
      * Get a random Integer between 0 and your defined Upper Bound
+     *
      * @param upperBounds The upper bound
      * @return return a random integer between 0 and upperBounds
      */
@@ -34,6 +35,15 @@ public class RandomGen {
         }
 
         return val;
+    }
+
+    /**
+     * return a random float value between 0.0f and 1.0f
+     *
+     * @return a random float value between 0.0f and 1.0f
+     */
+    public float getRandomFloat() {
+        return getRandomizer(24) / ((float) (1 << 24));
     }
 
     private int getRandomizer(int bits) {

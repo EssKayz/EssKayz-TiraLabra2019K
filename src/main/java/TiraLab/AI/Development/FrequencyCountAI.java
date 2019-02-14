@@ -4,7 +4,6 @@ package TiraLab.AI.Development;
 import TiraLab.AI.AIntf;
 import TiraLab.AI.GameAI;
 import TiraLab.Controllers.Move;
-import java.util.Random;
 
 public class FrequencyCountAI extends GameAI implements AIntf {
 
