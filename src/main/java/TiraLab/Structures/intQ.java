@@ -17,7 +17,10 @@ public class intQ {
 
     /**
      * A queue implementation using Arrays
-     * @param capacity the maximum size of the queue, after which it will start to remove elements from the end of the queue when adding more then it can hold
+     *
+     * @param capacity the maximum size of the queue, after which it will start
+     * to remove elements from the end of the queue when adding more then it can
+     * hold
      */
     public intQ(int capacity) {
         this.capacity = capacity;
@@ -30,6 +33,11 @@ public class intQ {
         }
     }
 
+    /**
+     * Get the sum of the integers stored in the queue
+     *
+     * @return total sum of array content
+     */
     public int getContentSum() {
         int sum = 0;
         for (int i = 0; i < capacity; i++) {
@@ -38,18 +46,31 @@ public class intQ {
         return sum;
     }
 
-    public boolean isFull(intQ queue) {
-        return (queue.size == queue.capacity);
+    /**
+     * Check if the array is full
+     *
+     * @return true if full, false if not full
+     */
+    public boolean isFull() {
+        return (this.size == this.capacity);
     }
 
-    public boolean isEmpty(intQ queue) {
-        return (queue.size == 0);
+    /**
+     * Check if the array is empty
+     *
+     * @return true if empty, false if not
+     */
+    public boolean isEmpty() {
+        return (this.size == 0);
     }
 
-    // Method to add an item to the queue.  
-    // It changes last and size 
+    /**
+     * Method to add an item to the queue.
+     * If the queue overflows, the last item is removed automatically
+     * @param item the integer to be added to the queue
+     */
     public void enqueue(int item) {
-        if (isFull(this)) {
+        if (isFull()) {
             dequeue();
         }
         this.rear = (this.rear + 1) % this.capacity;
@@ -57,8 +78,12 @@ public class intQ {
         this.size = this.size + 1;
     }
 
+    /**
+     * Remove last element of queue
+     * @return the value of the integer removed
+     */
     public int dequeue() {
-        if (isEmpty(this)) {
+        if (isEmpty()) {
             return Integer.MIN_VALUE;
         }
 
