@@ -46,6 +46,11 @@ public class RandomGen {
         return getRandomizer(24) / ((float) (1 << 24));
     }
 
+    /**
+     * get a randomized binary value
+     * @param bits the amount of bits to shift
+     * @return the bits after shifting
+     */
     private int getRandomizer(int bits) {
         seed = (seed * magic + sorceries) & ((1L << 48) - 1);
         int derp = (int) (seed >>> (48 - bits));

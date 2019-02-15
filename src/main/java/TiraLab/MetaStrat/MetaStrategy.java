@@ -22,6 +22,13 @@ public class MetaStrategy {
         decider = new WinDecider();
     }
 
+    /**
+     * Take the move that the AI would have otherwise thrown, but rotate the pattern by the 'rotations' amount. 
+     * Eg. Rock rotated by one, becomes Paper. By Two - Scissors. By three? Rock again.
+     * @param rotations the amount of rotations to be made
+     * @param defaultMove the move that you start from
+     * @return the move after the rotations
+     */
     public Move getMoveByRotating(int rotations, Move defaultMove) {
         Move returnable = defaultMove;
         for (int i = 0; i < rotations; i++) {

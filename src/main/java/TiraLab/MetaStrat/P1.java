@@ -13,6 +13,11 @@ import TiraLab.Controllers.Move;
  */
 public class P1 extends MetaStrategy {
 
+    /**
+     * Returns a move rotated by one
+     * @param defaultMove the move to be rotated
+     * @return the move gotten after rotation by one
+     */
     @Override
     public Move getMove(Move defaultMove) {
         super.previousMove = super.getMoveByRotating(1, defaultMove);

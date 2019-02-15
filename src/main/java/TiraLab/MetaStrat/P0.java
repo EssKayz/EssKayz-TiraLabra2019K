@@ -6,7 +6,8 @@
 package TiraLab.MetaStrat;
 
 /**
- *
+ * The default metastrategy, that just returns the move it was assigned with.
+ * returns the naive strategy move without rotating it at all.
  * @author ColdFish
  */
 public class P0 extends MetaStrategy{
