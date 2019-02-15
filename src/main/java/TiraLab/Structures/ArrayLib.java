@@ -14,6 +14,10 @@ public class ArrayLib {
     private String[] sequences;
     private int length;
 
+    /**
+     * Sort the array with a QuickSort algorithm
+     * @param array the array to be sorted
+     */
     public void sort(String[] array) {
         if (array == null || array.length == 0) {
             return;
@@ -23,12 +27,22 @@ public class ArrayLib {
         qs(0, length - 1);
     }
 
+    /**
+     * Swap the places of two elements in the array
+     * @param i the index of first element to swap
+     * @param j the index of the second element that swaps places with first one
+     */
     private void swap(int i, int j) {
         String apu = this.sequences[i];
         this.sequences[i] = this.sequences[j];
         this.sequences[j] = apu;
     }
 
+    /**
+     * A quickSort for the sequence array
+     * @param lowIndx the first element of sort
+     * @param highIndx the last element of sort
+     */
     private void qs(int lowIndx, int highIndx) {
         int x = lowIndx;
         int y = highIndx;
