@@ -23,5 +23,6 @@ before_cache:
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
+    - chromedriver
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
