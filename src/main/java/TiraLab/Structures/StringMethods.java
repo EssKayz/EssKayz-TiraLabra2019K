@@ -11,26 +11,24 @@ package TiraLab.Structures;
  */
 public class StringMethods {
 
-        /**
+    /**
      * Get the index of the last occurrence of a substring from another string
+     *
      * @param toFind the substring to be found
      * @param fullstring the full string to be searched from
-     * @return the index of the first letter of the last occurrence of the substring
+     * @return the index of the first letter of the last occurrence of the
+     * substring
      */
     public int lastIndexOf(String toFind, String fullstring) {
         int lastIndex = -1;
-        for (int i = fullstring.length() - toFind.length(); i > 0; i--) {
-            boolean found = true;
-            for (int j = 0; j < toFind.length(); j++) {
-                if (fullstring.charAt(i + j) == toFind.charAt(j)) {
-                    continue;
-                }
-                found = false;
-                break;
-            }
 
-            if (found) {
-                return i;
+        for (int i = 0; i < fullstring.length() - 1; i++) {
+            int ind = indexOf(toFind, fullstring, i);
+            if (ind == -1) {
+                return lastIndex;
+            }
+            if (ind > lastIndex) {
+                lastIndex = ind;
             }
         }
 
@@ -38,7 +36,8 @@ public class StringMethods {
     }
 
     /**
-     * Get the index of the first occurence of a substring from another string, starting from the parameter index
+     * Get the index of the first occurence of a substring from another string,
+     * starting from the parameter index
      *
      * @param toFind the substring to be found
      * @param fullstring the full string to be searched from
