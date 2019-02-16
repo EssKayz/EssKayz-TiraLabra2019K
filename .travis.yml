@@ -5,6 +5,7 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_install: 
   - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
+  - mkdir chromedriver
   - unzip chromedriver_linux64.zip -d chromedriver
   - export PATH=$PATH:$PWD/chromedriver
 before_script: 
@@ -22,6 +23,5 @@ before_cache:
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - chromedriver
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
