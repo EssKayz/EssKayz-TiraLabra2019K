@@ -20,6 +20,11 @@ public class StringTests {
     private StringMethods stringMeth;
 
     public StringTests() {
+
+    }
+
+    @Before
+    public void init() {
         stringMeth = new StringMethods();
     }
 
@@ -34,6 +39,7 @@ public class StringTests {
 
             control = test.substring(i, test.length() - 1);
             mySub = stringMeth.substring(test, i, test.length() - 1);
+            System.out.println("control : " + control + ", mine :" + mySub);
             assertTrue(control.equals(mySub));
         }
     }
@@ -45,6 +51,8 @@ public class StringTests {
 
         int realIndex = test.indexOf(toFind);
         int myIndex = stringMeth.indexOf(toFind, test);
+
+        System.out.println("control : " + realIndex + ", mine :" + myIndex);
         assertTrue(realIndex == myIndex);
     }
 
@@ -55,6 +63,7 @@ public class StringTests {
 
         int realIndex = test.indexOf(toFind);
         int myIndex = stringMeth.indexOf(toFind, test);
+        System.out.println("control : " + realIndex + ", mine :" + myIndex);
         assertTrue(realIndex == myIndex);
     }
 
@@ -65,16 +74,18 @@ public class StringTests {
 
         int realIndex = test.lastIndexOf(toFind);
         int myIndex = stringMeth.lastIndexOf(toFind, test);
+        System.out.println("control : " + realIndex + ", mine :" + myIndex);
         assertTrue(realIndex == myIndex);
     }
 
     @Test
     public void lastIndexOfWorksCorrectlyWhenNoMatch() {
         String test = "43ssfa52345ssfaksjgcvljlk43ssfa25435";
-        String toFind = "asdfasdf";
+        String toFind = "254351";
 
         int realIndex = test.lastIndexOf(toFind);
         int myIndex = stringMeth.lastIndexOf(toFind, test);
+        System.out.println("control : " + realIndex + ", mine :" + myIndex);
         assertTrue(realIndex == myIndex);
     }
 
@@ -85,6 +96,7 @@ public class StringTests {
 
         int realIndex = test.indexOf(toFind, 5);
         int myIndex = stringMeth.indexOf(toFind, test, 5);
+        System.out.println("control : " + realIndex + ", mine :" + myIndex);
         assertTrue(realIndex == myIndex);
     }
 

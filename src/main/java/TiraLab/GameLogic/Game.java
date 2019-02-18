@@ -28,12 +28,12 @@ public class Game {
      *
      * @param session the identifier of the game session
      */
-    public Game(String session) {
+    public Game(String session, AIntf[] aiList) {
         this.playerScore = 0;
         this.aiScore = 0;
         this.draws = 0;
         this.sessionID = session;
-        initAIs();
+        ais = aiList;
     }
 
     public void resetScore() {
@@ -61,18 +61,7 @@ public class Game {
      * Initialize the AI's to be used for the session
      */
     public final void initAIs() {
-        ais = new AIntf[]{
-            new RandomAI(),
-            new MarkovChainOneMoveAI(),
-            new AntiRotationAI(),
-            new PlayerMirroringAI(),
-            //
-            new PathMatchAI(2),
-            new PathMatchAI(5),
-            //
-            new PatternMatchAI(),
-            new NovaAI()
-        };
+
     }
 
     /**
@@ -117,11 +106,14 @@ public class Game {
         Move chosen = getWeightedRandomMove(voteMap);
         System.out.println("Chosen move to be played was : " + chosen.toString());
 
-        // Make AI random for the first 6 rounds while other AI's have a chance to gather data
-        if (aiScore + playerScore + draws <= 6) {
-            System.out.println("First five rounds, returning random move!");
+        // Make AI random for the first 10 rounds while other AI's have a chance to gather data
+        if (aiScore + playerScore + draws <= 10) {
             RandomAI randy = new RandomAI();
-            return randy.giveMove();
+            Move m = randy.giveMove();
+            System.out.println("First five rounds, returning random move : " + m.name());
+            System.out.println("");
+
+            return m;
         }
 
         return chosen;

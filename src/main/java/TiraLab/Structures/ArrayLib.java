@@ -16,9 +16,10 @@ public class ArrayLib {
 
     /**
      * Sort the array with a QuickSort algorithm
+     *
      * @param array the array to be sorted
      */
-    public void sort(String[] array) {
+    public void QuickSort(String[] array) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -28,7 +29,67 @@ public class ArrayLib {
     }
 
     /**
+     * Sort the array with a MergeSort algorithm
+     * @param arr the array to be sorted    
+     * @param start first index of the array
+     * @param end last index of the array
+     */
+    public void sort(String[] arr, int start, int end) {
+        if (start == end) {
+            return;
+        }
+        int mid = (start + end) / 2;
+
+        sort(arr, start, mid);
+        sort(arr, mid + 1, end);
+        merge(arr, start, mid, end);
+    }
+
+    /**
+     * Merge the array
+     * @param array the array to be merged
+     * @param start first index
+     * @param mid middle index
+     * @param end last index
+     */
+    public static void merge(String[] array, int start, int mid, int end) {
+        int n = end - start + 1;
+        String[] help = new String[n];
+        int firstIndex = start;
+        int midIndex = mid + 1;
+        int j = 0;
+
+        while (firstIndex <= mid && midIndex <= end) {
+            if (array[firstIndex].compareTo(array[midIndex]) < 0) {
+                help[j] = array[firstIndex];
+                firstIndex++;
+            } else {
+                help[j] = array[midIndex];
+                midIndex++;
+            }
+            j++;
+        }
+
+        while (firstIndex <= mid) {
+            help[j] = array[firstIndex];
+            firstIndex++;
+            j++;
+        }
+
+        while (midIndex <= end) {
+            help[j] = array[midIndex];
+            midIndex++;
+            j++;
+        }
+
+        for (j = 0; j < n; j++) {
+            array[start + j] = help[j];
+        }
+    }
+
+    /**
      * Swap the places of two elements in the array
+     *
      * @param i the index of first element to swap
      * @param j the index of the second element that swaps places with first one
      */
@@ -40,6 +101,7 @@ public class ArrayLib {
 
     /**
      * A quickSort for the sequence array
+     *
      * @param lowIndx the first element of sort
      * @param highIndx the last element of sort
      */

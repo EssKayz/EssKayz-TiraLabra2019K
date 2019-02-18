@@ -20,6 +20,8 @@ import TiraLab.Structures.intQ;
  */
 public class GameAI {
 
+    private RandomGen r = new RandomGen();
+
     public double score = 0;
     public double confidence = 0.0;
 
@@ -163,8 +165,8 @@ public class GameAI {
      * @return Returns a random Move
      */
     public Move returnRandomMove() {
-        RandomGen r = new RandomGen();
-        int d = r.getRandomInt(4);
+
+        int d = r.getRandomInt(3);
         Move given;
         if (d < 1) {
             given = Move.ROCK;

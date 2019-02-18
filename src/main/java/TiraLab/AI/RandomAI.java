@@ -13,6 +13,7 @@ import TiraLab.Controllers.Move;
  * @author ColdFish
  */
 public class RandomAI extends GameAI implements AIntf {
+
     /**
      * Creates an AI that returns a random Move enum
      */
@@ -25,6 +26,11 @@ public class RandomAI extends GameAI implements AIntf {
         Move random = super.returnRandomMove();
         super.aiPreviousMove = random;
         return random;
+    }
+
+    @Override
+    public Move getMetaStrategyModifiedMove(Move move) {
+        return move;
     }
 
     @Override
