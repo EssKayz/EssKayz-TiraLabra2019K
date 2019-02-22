@@ -26,18 +26,6 @@ public class Controllers {
 
     private HashMap<String, Game> sessions;
     private WinDecider decider;
-    private static AIntf[] defaultAis = new AIntf[]{
-        new RandomAI(),
-        new MarkovChainOneMoveAI(),
-        new AntiRotationAI(),
-        new PlayerMirroringAI(),
-        //
-        new PathMatchAI(2),
-        new PathMatchAI(5),
-        //
-        new PatternMatchAI(),
-        new NovaAI()
-    };
 
     public enum Move {
         ROCK("https://s3-us-west-2.amazonaws.com/s.cdpn.io/201958/Rock-Paper-Scissors-01.png"),
@@ -78,7 +66,7 @@ public class Controllers {
             System.out.println("-------/////////--------");
             System.out.println("New session added : ID " + sessionID);
             System.out.println("-------/////////--------");
-            sessions.put(sessionID, new Game(sessionID, defaultAis));
+            sessions.put(sessionID, new Game(sessionID));
         }
         model.addAttribute("game", sessions.get(sessionID));
         return "game";
@@ -91,7 +79,7 @@ public class Controllers {
             System.out.println("-------/////////--------");
             System.out.println("New session added : ID " + sessionID);
             System.out.println("-------/////////--------");
-            sessions.put(sessionID, new Game(sessionID, defaultAis));
+            sessions.put(sessionID, new Game(sessionID));
         }
         model.addAttribute("sessions", sessions.values());
         return "stats";
@@ -201,7 +189,7 @@ public class Controllers {
         }
 
         if (!sessions.containsKey(sessionID)) {
-            sessions.put(sessionID, new Game(sessionID, defaultAis));
+            sessions.put(sessionID, new Game(sessionID));
         }
 
         if (playerMove.isPresent()) {

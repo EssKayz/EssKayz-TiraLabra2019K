@@ -23,17 +23,30 @@ public class Game {
     private AIntf[] ais;
     private String sessionID;
 
+    private static AIntf[] defaultAis = new AIntf[]{
+        new RandomAI(),
+        new MarkovChainOneMoveAI(),
+        new AntiRotationAI(),
+        new PlayerMirroringAI(),
+        //
+        new PathMatchAI(2),
+        new PathMatchAI(5),
+        //
+        new PatternMatchAI(),
+        new NovaAI()
+    };
+
     /**
      * Creates a new Game session
      *
      * @param session the identifier of the game session
      */
-    public Game(String session, AIntf[] aiList) {
+    public Game(String session) {
         this.playerScore = 0;
         this.aiScore = 0;
         this.draws = 0;
         this.sessionID = session;
-        ais = aiList;
+        initAIs();
     }
 
     public void resetScore() {
@@ -61,6 +74,7 @@ public class Game {
      * Initialize the AI's to be used for the session
      */
     public final void initAIs() {
+        ais = defaultAis;
 
     }
 
