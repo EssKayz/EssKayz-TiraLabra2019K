@@ -1,7 +1,7 @@
 # EssKayz-TiraLabra2019K
 [Project definition document](https://github.com/EssKayz/EssKayz-TiraLabra2019K/blob/master/Documentation/Maarittelydokumentti.md)
 
-[Weekly Reports](https://github.com/EssKayz/EssKayz-TiraLabra2019K/tree/master/Reports)
+[Weekly Reports](https://github.com/EssKayz/EssKayz-TiraLabra2019K/tree/master/Documentation/Reports)
 
 [Documentation](https://github.com/EssKayz/EssKayz-TiraLabra2019K/tree/master/Documentation)
 
