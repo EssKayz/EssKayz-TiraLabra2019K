@@ -20,7 +20,8 @@ How the AI selection works :
 2. The guess of each AI is then graded based on the AIs longterm and short-term winrate.
 3. Each guess is calculated.
 4. Based on the guesses, the game will then generate a random integer between 0 and the total amount of votes.
-Example :
+
+Example of this :
 ```
 Ai1 votes for Rock, and is graded 150 points.
 Ai2 votes for Paper, and is graded 50 points.
