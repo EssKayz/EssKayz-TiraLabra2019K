@@ -12,7 +12,30 @@ Space complexity analysis :
 ToDo
 
 Performance analysis :
-ToDo
+See [Statistics](https://github.com/EssKayz/EssKayz-TiraLabra2019K/blob/master/Documentation/Statistics)
+
+
+How the AI selection works :
+1. Each AI gives their own qualified guess over what the next move should be.
+2. The guess of each AI is then graded based on the AIs longterm and short-term winrate.
+3. Each guess is calculated.
+4. Based on the guesses, the game will then generate a random integer between 0 and the total amount of votes.
+Example :
+```
+Ai1 votes for Rock, and is graded 150 points.
+Ai2 votes for Paper, and is graded 50 points.
+Ai3 votes for Rock, and is graded 50 points.
+All votes get added together, and now we have :
+	Rock : 200 points
+	Paper : 50 points
+	Scissors : 0 points.
+The game then generates a random integer between 0 and 250.
+	if the random number is between 0-0, we select Scissors.
+	if the number is between 0-50, we select Paper.
+	If the number is between 50-250, we select Rock.
+This way we get a weighted randomization, so that if all AI's vote for Rock, we select rock. 
+If the AI's then again vote equally, we essentially have a 33% possibilty for any one of the selections.
+```
 
 Possible improvements and caveats:
 Some more commentation on some classes (MetaStrategies, for example)

@@ -1,5 +1,10 @@
 Mitä algoritmeja ja tietorakenteita toteutat työssäsi
-> MarkovChain algoritmi, Queue, Erinäiset ihmisen psykologiaan perustuvat algoritmit
+1. > MarkovChain algoritmi, Queue, Erinäiset ihmisen psykologiaan perustuvat algoritmit. 
+2. > Random generointi (otettu mallia C-koodista), String[] sorttaaminen
+3. > String luokan metodejen uudelleen kirjoitus (substring yms)
+4. > Merkkijonosta pisimmän "repeating pattern"in löytäminen, eli etsitään pisin vähintään kahdesti toistuva merkkijononpätkä merkkijonosta.
+5. > IndexOf ja LastIndexOf string metodit itse kirjoitettuna
+6. > Pelaajan pelihistoriaan perustuvia valinta-algoritmejä
 	
 Mitä ongelmaa ratkaiset ja miksi valitsit kyseiset algoritmit/tietorakenteet
 1. > KSP Tekoäly, verkkosivulla pelattava versio, joka tukee monen pelaajan sessioneita, ja kertoo mikä on tämän hetkinen paras voittoprosentti
