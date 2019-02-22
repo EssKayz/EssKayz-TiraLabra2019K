@@ -1,3 +1,6 @@
+Average winrate over 9 games played by 9 different players (without knowledge of how the players were playing)
+349 / (349 + 560) = 38.3%
+
    Wins
 Human	AI
 34	47
