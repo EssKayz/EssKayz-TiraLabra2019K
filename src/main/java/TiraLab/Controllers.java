@@ -48,8 +48,7 @@ public class Controllers {
         decider = new WinDecider();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
+    private String checkIfSessionExists(HttpServletRequest request, HttpServletResponse response) {
         String sessionID = getSession(request);
         if (sessionID == null) {
             RandomGen r = new RandomGen();
@@ -61,6 +60,7 @@ public class Controllers {
             cookie.setMaxAge(60 * 60 * 24 * 365 * 1);
             response.addCookie(cookie);
         }
+
         sessionID = getSession(request);
         if (!sessions.containsKey(sessionID)) {
             System.out.println("-------/////////--------");
@@ -68,19 +68,20 @@ public class Controllers {
             System.out.println("-------/////////--------");
             sessions.put(sessionID, new Game(sessionID));
         }
+
+        return sessionID;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String sessionID = checkIfSessionExists(request, response);
         model.addAttribute("game", sessions.get(sessionID));
         return "game";
     }
 
     @RequestMapping(value = "/sessions", method = RequestMethod.GET)
-    public String sessions(HttpServletRequest request, Model model) {
-        String sessionID = getSession(request);
-        if (!sessions.containsKey(sessionID)) {
-            System.out.println("-------/////////--------");
-            System.out.println("New session added : ID " + sessionID);
-            System.out.println("-------/////////--------");
-            sessions.put(sessionID, new Game(sessionID));
-        }
+    public String sessions(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String sessionID = checkIfSessionExists(request, response);
         model.addAttribute("sessions", sessions.values());
         return "stats";
     }
@@ -151,18 +152,7 @@ public class Controllers {
 
     @RequestMapping(value = "/images")
     public String images(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam Optional<String> playerMove) {
-        String sessionID = getSession(request);
-        if (sessionID == null) {
-            RandomGen r = new RandomGen();
-            int rr = r.getRandomInt(Integer.MAX_VALUE);
-            Cookie cookie = new Cookie("GameID", String.valueOf(rr));
-            cookie.setValue(String.valueOf(rr));
-
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(60 * 60 * 24 * 365 * 1);
-            response.addCookie(cookie);
-        }
-        sessionID = getSession(request);
+        String sessionID = checkIfSessionExists(request, response);
         Move pMove = null;
         Move aiMove = null;
         if (playerMove.isPresent()) {

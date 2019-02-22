@@ -1,6 +1,38 @@
+   Wins
 Human	AI
 34	47
 33	43
 63	69
 36	38
 29	37
+36	67
+32	37
+58	65
+28	53
+
+Detailed statistics of the last 2 games >
+
+58	65
+Below are the scores that each separate AI would have scored if it was the only AI to play against the player.
+RandomAI	52
+MarkovChainAI	78
+AntiRotationAI	67
+MirroringAI	73
+PathMatcherAI-2moves	73
+PathMatcherAI-5moves	61
+PatternMatcher	60
+NovaAI	72
+
+////////////////////
+
+
+28	53
+Below are the scores that each separate AI would have scored if it was the only AI to play against the player.
+RandomAI	43
+MarkovChainAI	41
+AntiRotationAI	52
+MirroringAI	44
+PathMatcherAI-2moves	71
+PathMatcherAI-5moves	44
+PatternMatcher	34
+NovaAI	59

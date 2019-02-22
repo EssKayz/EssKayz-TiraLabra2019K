@@ -23,19 +23,6 @@ public class Game {
     private AIntf[] ais;
     private String sessionID;
 
-    private static AIntf[] defaultAis = new AIntf[]{
-        new RandomAI(),
-        new MarkovChainOneMoveAI(),
-        new AntiRotationAI(),
-        new PlayerMirroringAI(),
-        //
-        new PathMatchAI(2),
-        new PathMatchAI(5),
-        //
-        new PatternMatchAI(),
-        new NovaAI()
-    };
-
     /**
      * Creates a new Game session
      *
@@ -74,7 +61,18 @@ public class Game {
      * Initialize the AI's to be used for the session
      */
     public final void initAIs() {
-        ais = defaultAis;
+        ais = new AIntf[]{
+            new RandomAI(),
+            new MarkovChainOneMoveAI(),
+            new AntiRotationAI(),
+            new PlayerMirroringAI(),
+            //
+            new PathMatchAI(2),
+            new PathMatchAI(5),
+            //
+            new PatternMatchAI(),
+            new NovaAI()
+        };
 
     }
 
