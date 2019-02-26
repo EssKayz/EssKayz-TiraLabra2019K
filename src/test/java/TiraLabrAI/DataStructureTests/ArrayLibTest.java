@@ -84,10 +84,16 @@ public class ArrayLibTest {
         endTime = System.currentTimeMillis();
         long timeSpentArrays = endTime - startTime;
 
-        System.out.println("TimeArrays : " + timeSpentArrays + ", mine : " + timeSpentMyAlgo);
+        startTime = System.currentTimeMillis();
+        arrayLib.QuickSort(arr);
+        endTime = System.currentTimeMillis();
+        long timeSpentQS = endTime - startTime;
+
+        System.out.println("Time using Arrays : " + timeSpentArrays + ", mergesort : " + timeSpentMyAlgo +  ", quickSort : " + timeSpentQS);
         long diff = Math.abs(timeSpentArrays - timeSpentMyAlgo);
         System.out.println("Difference in milliseconds : " + diff);
         // pass the test if the difference is less then 25% or my algorithm is faster
         assertTrue(diff < timeSpentArrays * 0.25 || timeSpentMyAlgo < timeSpentArrays);
     }
+
 }
