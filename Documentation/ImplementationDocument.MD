@@ -6,14 +6,14 @@ Controller.java - responsible for the website management of the software, contai
 		> GameAI, superclass for some default methods used in most AI implementations
 
 Time complexity analysis :
-ToDo
+N/A, time complexity not calculated, but user experiences were, that they basically never had to wait for the AI.
 
 Space complexity analysis :
-ToDo
+N/A
 
 Performance analysis :
 See [Statistics](https://github.com/EssKayz/EssKayz-TiraLabra2019K/blob/master/Documentation/Statistics)
-
+Around 50-75% winrate against randomly selected people
 
 How the AI selection works :
 1. Each AI gives their own qualified guess over what the next move should be.
