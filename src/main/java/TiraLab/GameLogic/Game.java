@@ -36,6 +36,9 @@ public class Game {
         initAIs();
     }
 
+    /**
+     * Reset the session : all the scores and the AI logics.
+     */
     public void resetScore() {
         this.playerScore = 0;
         this.aiScore = 0;
@@ -43,16 +46,27 @@ public class Game {
         initAIs();
     }
 
+    /**
+     * Resets the win counters for all assigned AI's
+     */
     public void resetAIWins() {
         for (AIntf ai : ais) {
             ai.resetWins();
         }
     }
 
+    /**
+     * Get the ID of the current session
+     * @return 
+     */
     public String getSessionID() {
         return sessionID;
     }
 
+    /**
+     * Get an array containing each AI the session has
+     * @return an array of AIs extending the AIntf class
+     */
     public AIntf[] getAis() {
         return ais;
     }
@@ -132,7 +146,7 @@ public class Game {
     }
 
     /**
-     * get a Move randomly weighted acording to the votes of the AI's
+     * get a Move randomly weighted according to the votes of the AI's
      *
      * @param map the vote map containing all votes
      * @return a Move, selected by weighted random
@@ -171,6 +185,14 @@ public class Game {
         return given;
     }
 
+    /**
+     * adjust the vote depending on input parameters
+     * @param winRate the long term winrate of the AI
+     * @param shortTerm the winrate for the past 10 games of the AI
+     * @param aitype the AI object
+     * @param selection the selected move
+     * @return an adjusted double
+     */
     public double adjustVote(double winRate, double shortTerm, GameAI aitype, Move selection) {
 
         System.out.println(aitype.AiType + " votes for " + selection.toString() + " with a short term winrate of " + (shortTerm) + "%, and a long term winrate of " + winRate + "%");

@@ -18,6 +18,9 @@ public class MetaStrategy {
     public WinDecider decider;
     public Move previousMove;
 
+    /**
+     * A class that follows how the player plays, as in - if the player is actively trying to counter the AI, an metastrategy can be implemented to counter the counter.
+     */
     public MetaStrategy() {
         decider = new WinDecider();
     }
@@ -50,6 +53,11 @@ public class MetaStrategy {
         return returnable;
     }
 
+    /**
+     * get the Move the metastrategy selected
+     * @param defaultMove the default Move to return
+     * @return 
+     */
     public Move getMove(Move defaultMove) {
         previousMove = defaultMove;
         return defaultMove;

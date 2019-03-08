@@ -13,6 +13,12 @@ import TiraLab.Controllers.Move;
  */
 public class WinDecider {
 
+    /**
+     * decide wether the player wins the AI or not.
+     * @param playerMoves the player Move
+     * @param AiMove the AI move
+     * @return 1 if the player wins, -1 if the AI wins, 0 if it is a draw.
+     */
     public int playerWins(Move playerMoves, Move AiMove) {
         switch (playerMoves) {
             case ROCK: {
@@ -49,6 +55,11 @@ public class WinDecider {
         return 0;
     }
 
+    /**
+     * return the Move that beats the Move moveToBeat
+     * @param moveToBeat move to beat
+     * @return Move that wins the parameter Move
+     */
     public Move getMoveThatBeats(Move moveToBeat) {
         switch (moveToBeat) {
             case PAPER: {
@@ -63,6 +74,11 @@ public class WinDecider {
         }
     }
 
+    /**
+     * Return a Move based on input string
+     * @param move the String to parse
+     * @return a Move parsed by "Rock", "Paper" or "Scissors"
+     */
     public Move convertMove(String move) {
         switch (move) {
             case "Rock": {

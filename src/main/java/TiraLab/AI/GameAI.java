@@ -118,6 +118,10 @@ public class GameAI {
         return (double) shortTermWins.getContentSum() / shortTermSpan;
     }
 
+    /**
+     * Get the score of the AI
+     * @return AI score
+     */
     public double getScore() {
         return (score + confidence) + (getShortTermWinRate() * wins);
     }

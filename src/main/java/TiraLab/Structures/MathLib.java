@@ -11,6 +11,12 @@ package TiraLab.Structures;
  */
 public class MathLib {
 
+    /**
+     * Return the smaller of two input integers
+     * @param first one integer
+     * @param second another integer
+     * @return the smaller of the two integers.
+     */
     public int min(int first, int second) {
         if (first < second) {
             return first;
