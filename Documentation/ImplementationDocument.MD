@@ -1,4 +1,4 @@
-The generic structure of the program is:
+# The generic structure of the program
 
 Controller.java - responsible for the website management of the software, container for all Game sessions
 	Game.java - Object containing a game session
@@ -37,6 +37,21 @@ The game then generates a random integer between 0 and 250.
 This way we get a weighted randomization, so that if all AI's vote for Rock, we select rock. 
 If the AI's then again vote equally, we essentially have a 33% possibilty for any one of the selections.
 ```
+
+# Data structures
+###  Array Library
+1. An library for sorting string arrays. 
+2. Contains a MergeSort, QuickSort
+
+### String method library
+1. Own implementation of substring from index 1 to index 2
+2. Own implementation to find the last index of a substring within a string
+3. Own implementation to find the first index of a substring, and an override to do same, but starting at a predefined index.
+
+### RandomGen class
+1. a Random Generation algorithm, 
+2. uses bitshifting and bitwise operands on long numbers to generate pseudorandom numbers based on a long type seed generated on system time.
+
 
 Possible improvements and caveats:
 Some more commentation on some classes (MetaStrategies, for example)
