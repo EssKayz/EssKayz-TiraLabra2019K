@@ -5,8 +5,6 @@
 
 [Documentation](https://github.com/EssKayz/EssKayz-TiraLabra2019K/tree/master/Documentation)
 
-[Click here to play the game (if the server is not down)](http://ohmipro.ddns.net:7777)
-
 [Click here for alternative slower website (HerokuApp hosted website)](https://rpstiralab.herokuapp.com/)
 
 CI component |Badge
